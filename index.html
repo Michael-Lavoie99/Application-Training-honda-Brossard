@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plateforme d'entraînement - Honda Brossard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Concession Honda Brossard</p>
+          <h1>Simulateur d'entretien de vente</h1>
+          <p class="subtitle">
+            Préparez vos vendeurs à des échanges clients réalistes et mesurez leurs compétences avec une note sur 10.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h2>Objectifs d'apprentissage</h2>
+          <ul>
+            <li>Découvrir les besoins clients avec des questions ouvertes.</li>
+            <li>Présenter la valeur et les avantages des véhicules.</li>
+            <li>Traiter les objections et conclure avec assurance.</li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Simulation verbale</h2>
+            <span class="badge" id="step-indicator">Étape 1 / 4</span>
+          </div>
+          <div class="chat">
+            <div class="chat-row client">
+              <div class="avatar">CL</div>
+              <div>
+                <p class="chat-label">Client</p>
+                <p class="chat-bubble" id="client-line"></p>
+              </div>
+            </div>
+            <div class="chat-row seller">
+              <div class="avatar">VS</div>
+              <div>
+                <p class="chat-label">Vendeur</p>
+                <textarea
+                  id="seller-response"
+                  placeholder="Saisissez la réponse du vendeur..."
+                  rows="5"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="ghost" id="restart">Réinitialiser</button>
+            <div class="action-group">
+              <button class="secondary" id="save-response">Enregistrer la réponse</button>
+              <button class="primary" id="next-step">Étape suivante</button>
+            </div>
+          </div>
+          <p class="helper" id="helper-text">
+            Conseil : utilisez des questions ouvertes, reformulez les besoins et proposez un essai routier.
+          </p>
+        </section>
+
+        <aside class="panel score-panel">
+          <div class="panel-header">
+            <h2>Évaluation</h2>
+            <span class="badge">Note finale</span>
+          </div>
+          <div class="score">
+            <div class="score-value" id="score-value">-</div>
+            <div class="score-max">/ 10</div>
+          </div>
+          <p class="score-note" id="score-note">
+            Complétez la simulation pour obtenir une note et des points d'amélioration.
+          </p>
+          <ul class="score-list" id="score-list"></ul>
+          <div class="criteria">
+            <h3>Critères utilisés</h3>
+            <ul>
+              <li>Découverte des besoins.</li>
+              <li>Arguments de valeur et bénéfices.</li>
+              <li>Traitement des objections.</li>
+              <li>Capacité à proposer la prochaine étape.</li>
+            </ul>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
