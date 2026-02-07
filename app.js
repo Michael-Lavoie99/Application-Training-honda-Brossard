@@ -55,6 +55,8 @@ const rubric = [
 
 let currentStage = 0;
 let replyIndex = 0;
+let stageResponseCount = 0;
+let isComplete = false;
 const responses = [];
 
 const chatLog = document.getElementById("chat-log");
@@ -98,14 +100,22 @@ const addMessage = (author, text) => {
   scrollToBottom();
 };
 
+const addStageDivider = (stage) => {
+  const divider = document.createElement("div");
+  divider.className = "stage-divider";
+  divider.textContent = `Étape ${currentStage + 1} · ${stage.title}`;
+  chatLog.appendChild(divider);
+};
+
 const updateStage = () => {
   const stage = stages[currentStage];
-  chatLog.innerHTML = "";
   replyIndex = 0;
+  stageResponseCount = 0;
   stepIndicator.textContent = `Étape ${currentStage + 1} / ${stages.length} · ${stage.title}`;
   helperText.textContent = `Conseil : ${stage.hint}`;
   sellerResponse.value = "";
   nextStepButton.disabled = true;
+  addStageDivider(stage);
   addMessage("client", stage.clientOpening);
 };
 
@@ -154,12 +164,25 @@ const renderScore = () => {
   });
 };
 
-sendResponseButton.addEventListener("click", () => {
+const enableNextStepIfReady = () => {
+  if (stageResponseCount === 0) {
+    return;
+  }
+  if (replyIndex >= stages[currentStage].clientReplies.length) {
+    nextStepButton.disabled = false;
+  }
+};
+
+const submitResponse = () => {
+  if (isComplete) {
+    return;
+  }
   const response = sellerResponse.value.trim();
   if (!response) {
     return;
   }
   responses.push(response);
+  stageResponseCount += 1;
   addMessage("seller", response);
   sellerResponse.value = "";
 
@@ -168,11 +191,17 @@ sendResponseButton.addEventListener("click", () => {
   if (clientReply) {
     addMessage("client", clientReply);
     replyIndex += 1;
-    if (replyIndex === stage.clientReplies.length) {
-      nextStepButton.disabled = false;
-    }
-  } else {
-    nextStepButton.disabled = false;
+  }
+
+  enableNextStepIfReady();
+};
+
+sendResponseButton.addEventListener("click", submitResponse);
+
+sellerResponse.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    submitResponse();
   }
 });
 
@@ -182,16 +211,22 @@ nextStepButton.addEventListener("click", () => {
     updateStage();
   } else {
     renderScore();
+    isComplete = true;
+    nextStepButton.disabled = true;
+    sendResponseButton.disabled = true;
   }
 });
 
 restartButton.addEventListener("click", () => {
   responses.length = 0;
   currentStage = 0;
+  isComplete = false;
+  chatLog.innerHTML = "";
   scoreValue.textContent = "-";
   scoreNote.textContent =
     "Complétez la simulation pour obtenir une note et des points d'amélioration.";
   scoreList.innerHTML = "";
+  sendResponseButton.disabled = false;
   updateStage();
 });
 
