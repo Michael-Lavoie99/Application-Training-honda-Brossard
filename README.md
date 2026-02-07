@@ -21,8 +21,28 @@ Ouvrez `index.html` dans un navigateur ou lancez un serveur local :
 python -m http.server
 ```
 
-## Publier sur GitHub Pages (lien public)
-1. Créez un dépôt GitHub et envoyez les fichiers du projet.
+## Publier sur GitHub Pages (pas à pas)
+### Étape 1 : créer le dépôt GitHub
+1. Allez sur https://github.com/new
+2. Nom du dépôt : par exemple `training-app`.
+3. Cliquez **Create repository**.
+
+### Étape 2 : envoyer les fichiers depuis Windows
+Ouvrez **PowerShell** dans le dossier du projet, puis exécutez :
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/<votre-utilisateur>/<nom-du-depot>.git
+git push -u origin main
+```
+
+> Remplacez `<votre-utilisateur>` et `<nom-du-depot>` par vos informations.
+
+### Étape 3 : activer GitHub Pages
+1. Ouvrez votre dépôt sur GitHub.
 2. Allez dans **Settings → Pages**.
 3. Dans **Build and deployment**, choisissez :
    - **Source** : Deploy from a branch
@@ -30,6 +50,7 @@ python -m http.server
    - **Folder** : `/ (root)`
 4. Cliquez **Save**.
 
+### Étape 4 : récupérer le lien public
 Votre lien public sera :
 
 ```
@@ -38,3 +59,5 @@ https://<votre-utilisateur>.github.io/<nom-du-depot>/
 
 > Exemple : si votre utilisateur est `hondabrossard` et le dépôt s'appelle `training-app`, le lien sera
 > `https://hondabrossard.github.io/training-app/`.
+
+Si vous me donnez votre **nom d'utilisateur GitHub** et le **nom du dépôt**, je peux vous écrire le lien exact.
