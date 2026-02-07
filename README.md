@@ -21,6 +21,21 @@ Ouvrez `index.html` dans un navigateur ou lancez un serveur local :
 python -m http.server
 ```
 
+### Mise à jour automatique de l'application
+L'application peut se recharger automatiquement lorsqu'une nouvelle version est disponible (utile après un `git push` sur GitHub Pages ou lors d'un déploiement).
+
+Pour que l'auto‑mise à jour fonctionne :
+1. Servez l'application via HTTP (par exemple avec `python -m http.server` ou `start-windows.bat`).
+2. Après avoir fait vos changements, exécutez :
+
+```bash
+git add .
+git commit -m "Mise à jour"
+git push
+```
+
+L'application vérifie toutes les 60 secondes si la page a été mise à jour et se recharge automatiquement si c'est le cas.
+
 ## Publier sur GitHub Pages (pas à pas)
 ### Étape 1 : créer le dépôt GitHub
 1. Allez sur https://github.com/new
