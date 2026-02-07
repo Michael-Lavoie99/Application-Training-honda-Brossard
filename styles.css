@@ -7,7 +7,6 @@
   --secondary: #0f172a;
   --muted: #6b7280;
   --border: #e5e7eb;
-  --success: #16a34a;
 }
 
 * {
@@ -97,9 +96,12 @@ h1 {
   font-size: 12px;
 }
 
-.chat {
+.chat-log {
   display: grid;
   gap: 16px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .chat-row {
@@ -138,6 +140,18 @@ h1 {
   line-height: 1.5;
 }
 
+.chat-input {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.chat-input label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
 textarea {
   width: 100%;
   border-radius: 12px;
@@ -145,7 +159,13 @@ textarea {
   padding: 12px 14px;
   font-size: 14px;
   resize: vertical;
-  min-height: 120px;
+  min-height: 110px;
+}
+
+.input-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
 }
 
 .actions {
@@ -155,11 +175,6 @@ textarea {
   margin-top: 16px;
   gap: 12px;
   flex-wrap: wrap;
-}
-
-.action-group {
-  display: flex;
-  gap: 12px;
 }
 
 button {
@@ -184,6 +199,11 @@ button.ghost {
   background: transparent;
   color: var(--muted);
   border: 1px solid var(--border);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .helper {

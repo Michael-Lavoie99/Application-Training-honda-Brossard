@@ -1,27 +1,39 @@
-const steps = [
+const stages = [
   {
-    client:
-      "Bonjour, je regarde pour une voiture familiale confortable. J'hésite entre un VUS et une berline.",
-    hint: "Découvrez la situation familiale, le budget et les habitudes de conduite.",
+    title: "Découverte",
+    hint: "Lancez l'échange avec des questions ouvertes sur l'usage, la famille et le budget.",
+    clientOpening:
+      "Bonjour, je cherche un véhicule pour ma famille. Je fais beaucoup de route et je veux du confort.",
+    clientReplies: [
+      "Nous sommes 4 à la maison et je fais environ 20 000 km par an.",
+      "Le budget mensuel idéal serait autour de 600 $.",
+    ],
   },
   {
-    client: "Je suis curieux mais je ne veux pas dépasser 650 $ par mois.",
-    hint: "Validez le budget, proposez des options de financement et des versions.",
+    title: "Valeur",
+    hint: "Reliez les besoins à des bénéfices : sécurité, technologie, garantie, financement.",
+    clientOpening:
+      "J'hésite entre un VUS compact et une berline. Je veux être sûr de faire le bon choix.",
+    clientReplies: [
+      "Je veux surtout que ce soit fiable et sécuritaire pour les enfants.",
+      "Je ne veux pas perdre trop de temps à l'entretien.",
+    ],
   },
   {
-    client: "J'ai déjà un autre concessionnaire qui m'offre un rabais.",
-    hint: "Traitez l'objection en mettant l'accent sur la valeur et le service.",
-  },
-  {
-    client: "Je dois réfléchir. Je peux revenir plus tard.",
-    hint: "Proposez une prochaine étape claire : essai routier, devis, rappel.",
+    title: "Objections et prochaine étape",
+    hint: "Traitez l'objection et proposez un essai routier ou un rendez-vous clair.",
+    clientOpening:
+      "Un autre concessionnaire me propose un rabais de 1 000 $.",
+    clientReplies: [
+      "Je dois en parler avec ma conjointe avant de décider.",
+    ],
   },
 ];
 
 const rubric = [
   {
     label: "Questions ouvertes et découverte des besoins",
-    keywords: ["besoin", "habitude", "famille", "usage", "priorité", "objectif"],
+    keywords: ["besoin", "habitude", "famille", "usage", "priorité", "objectif", "budget"],
     weight: 3,
   },
   {
@@ -31,20 +43,21 @@ const rubric = [
   },
   {
     label: "Traitement des objections",
-    keywords: ["comprendre", "compar", "avantage", "service", "différence"],
+    keywords: ["comprendre", "compar", "avantage", "service", "différence", "rabais"],
     weight: 2,
   },
   {
     label: "Prochaine étape claire",
-    keywords: ["essai", "rendez-vous", "devis", "prochaine", "planifier"],
+    keywords: ["essai", "rendez-vous", "devis", "prochaine", "planifier", "appel"],
     weight: 2,
   },
 ];
 
-let currentStep = 0;
-const responses = new Array(steps.length).fill("");
+let currentStage = 0;
+let replyIndex = 0;
+const responses = [];
 
-const clientLine = document.getElementById("client-line");
+const chatLog = document.getElementById("chat-log");
 const sellerResponse = document.getElementById("seller-response");
 const stepIndicator = document.getElementById("step-indicator");
 const helperText = document.getElementById("helper-text");
@@ -52,17 +65,48 @@ const scoreValue = document.getElementById("score-value");
 const scoreNote = document.getElementById("score-note");
 const scoreList = document.getElementById("score-list");
 
-const saveResponseButton = document.getElementById("save-response");
+const sendResponseButton = document.getElementById("send-response");
 const nextStepButton = document.getElementById("next-step");
 const restartButton = document.getElementById("restart");
 
-const updateStep = () => {
-  const step = steps[currentStep];
-  clientLine.textContent = step.client;
-  sellerResponse.value = responses[currentStep];
-  stepIndicator.textContent = `Étape ${currentStep + 1} / ${steps.length}`;
-  helperText.textContent = `Conseil : ${step.hint}`;
-  nextStepButton.textContent = currentStep === steps.length - 1 ? "Terminer" : "Étape suivante";
+const scrollToBottom = () => {
+  chatLog.scrollTop = chatLog.scrollHeight;
+};
+
+const addMessage = (author, text) => {
+  const row = document.createElement("div");
+  row.className = `chat-row ${author}`;
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = author === "client" ? "CL" : "VS";
+
+  const bubbleWrapper = document.createElement("div");
+  const label = document.createElement("p");
+  label.className = "chat-label";
+  label.textContent = author === "client" ? "Client" : "Vendeur";
+  const bubble = document.createElement("p");
+  bubble.className = "chat-bubble";
+  bubble.textContent = text;
+
+  bubbleWrapper.appendChild(label);
+  bubbleWrapper.appendChild(bubble);
+
+  row.appendChild(avatar);
+  row.appendChild(bubbleWrapper);
+  chatLog.appendChild(row);
+  scrollToBottom();
+};
+
+const updateStage = () => {
+  const stage = stages[currentStage];
+  chatLog.innerHTML = "";
+  replyIndex = 0;
+  stepIndicator.textContent = `Étape ${currentStage + 1} / ${stages.length} · ${stage.title}`;
+  helperText.textContent = `Conseil : ${stage.hint}`;
+  sellerResponse.value = "";
+  nextStepButton.disabled = true;
+  addMessage("client", stage.clientOpening);
 };
 
 const normalize = (text) => text.toLowerCase();
@@ -81,7 +125,7 @@ const calculateScore = () => {
     );
   });
 
-  const lengthScore = responses.some((response) => response.trim().length > 60) ? 0 : 1;
+  const lengthScore = responses.some((response) => response.trim().length > 70) ? 0 : 1;
   total = Math.min(10, total + lengthScore);
   feedback.push(
     lengthScore === 0
@@ -110,28 +154,45 @@ const renderScore = () => {
   });
 };
 
-saveResponseButton.addEventListener("click", () => {
-  responses[currentStep] = sellerResponse.value.trim();
+sendResponseButton.addEventListener("click", () => {
+  const response = sellerResponse.value.trim();
+  if (!response) {
+    return;
+  }
+  responses.push(response);
+  addMessage("seller", response);
+  sellerResponse.value = "";
+
+  const stage = stages[currentStage];
+  const clientReply = stage.clientReplies[replyIndex];
+  if (clientReply) {
+    addMessage("client", clientReply);
+    replyIndex += 1;
+    if (replyIndex === stage.clientReplies.length) {
+      nextStepButton.disabled = false;
+    }
+  } else {
+    nextStepButton.disabled = false;
+  }
 });
 
 nextStepButton.addEventListener("click", () => {
-  responses[currentStep] = sellerResponse.value.trim();
-  if (currentStep < steps.length - 1) {
-    currentStep += 1;
-    updateStep();
+  if (currentStage < stages.length - 1) {
+    currentStage += 1;
+    updateStage();
   } else {
     renderScore();
   }
 });
 
 restartButton.addEventListener("click", () => {
-  responses.fill("");
-  currentStep = 0;
+  responses.length = 0;
+  currentStage = 0;
   scoreValue.textContent = "-";
   scoreNote.textContent =
     "Complétez la simulation pour obtenir une note et des points d'amélioration.";
   scoreList.innerHTML = "";
-  updateStep();
+  updateStage();
 });
 
-updateStep();
+updateStage();

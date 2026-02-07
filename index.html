@@ -19,9 +19,9 @@
         <div class="hero-card">
           <h2>Objectifs d'apprentissage</h2>
           <ul>
-            <li>Découvrir les besoins clients avec des questions ouvertes.</li>
-            <li>Présenter la valeur et les avantages des véhicules.</li>
-            <li>Traiter les objections et conclure avec assurance.</li>
+            <li>Créer un échange fluide avec le client.</li>
+            <li>Découvrir les besoins avec des questions ouvertes.</li>
+            <li>Proposer la prochaine étape clairement.</li>
           </ul>
         </div>
       </header>
@@ -30,37 +30,26 @@
         <section class="panel">
           <div class="panel-header">
             <h2>Simulation verbale</h2>
-            <span class="badge" id="step-indicator">Étape 1 / 4</span>
+            <span class="badge" id="step-indicator">Étape 1 / 3</span>
           </div>
-          <div class="chat">
-            <div class="chat-row client">
-              <div class="avatar">CL</div>
-              <div>
-                <p class="chat-label">Client</p>
-                <p class="chat-bubble" id="client-line"></p>
-              </div>
-            </div>
-            <div class="chat-row seller">
-              <div class="avatar">VS</div>
-              <div>
-                <p class="chat-label">Vendeur</p>
-                <textarea
-                  id="seller-response"
-                  placeholder="Saisissez la réponse du vendeur..."
-                  rows="5"
-                ></textarea>
-              </div>
+          <div class="chat-log" id="chat-log"></div>
+          <div class="chat-input">
+            <label for="seller-response">Réponse du vendeur</label>
+            <textarea
+              id="seller-response"
+              placeholder="Saisissez la réponse du vendeur..."
+              rows="4"
+            ></textarea>
+            <div class="input-actions">
+              <button class="secondary" id="send-response">Envoyer</button>
+              <button class="primary" id="next-step" disabled>Étape suivante</button>
             </div>
           </div>
           <div class="actions">
             <button class="ghost" id="restart">Réinitialiser</button>
-            <div class="action-group">
-              <button class="secondary" id="save-response">Enregistrer la réponse</button>
-              <button class="primary" id="next-step">Étape suivante</button>
-            </div>
           </div>
           <p class="helper" id="helper-text">
-            Conseil : utilisez des questions ouvertes, reformulez les besoins et proposez un essai routier.
+            Conseil : explorez le contexte du client avant de proposer un modèle.
           </p>
         </section>
 
@@ -80,10 +69,10 @@
           <div class="criteria">
             <h3>Critères utilisés</h3>
             <ul>
-              <li>Découverte des besoins.</li>
-              <li>Arguments de valeur et bénéfices.</li>
-              <li>Traitement des objections.</li>
-              <li>Capacité à proposer la prochaine étape.</li>
+              <li>Écoute et découverte des besoins.</li>
+              <li>Valeur perçue et bénéfices.</li>
+              <li>Gestion des objections.</li>
+              <li>Proposition d'une prochaine étape.</li>
             </ul>
           </div>
         </aside>
