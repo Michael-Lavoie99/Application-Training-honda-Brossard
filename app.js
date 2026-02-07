@@ -135,3 +135,34 @@ restartButton.addEventListener("click", () => {
 });
 
 updateStep();
+
+const setupAutoRefresh = () => {
+  if (!window.location.protocol.startsWith("http")) {
+    return;
+  }
+
+  let lastModified = null;
+  const checkForUpdate = async () => {
+    try {
+      const response = await fetch(window.location.href, {
+        method: "HEAD",
+        cache: "no-store",
+      });
+      const current = response.headers.get("last-modified");
+      if (lastModified && current && current !== lastModified) {
+        window.location.reload();
+        return;
+      }
+      if (current) {
+        lastModified = current;
+      }
+    } catch (error) {
+      // Ignorer les erreurs réseau temporaires.
+    }
+  };
+
+  checkForUpdate();
+  window.setInterval(checkForUpdate, 60000);
+};
+
+setupAutoRefresh();
