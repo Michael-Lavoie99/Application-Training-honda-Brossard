@@ -175,6 +175,13 @@ button.primary {
   color: white;
 }
 
+button.primary:disabled {
+  background: var(--primary);
+  color: white;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 button.secondary {
   background: #f1f5f9;
   color: var(--secondary);
