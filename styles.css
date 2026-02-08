@@ -178,7 +178,6 @@ button.primary {
 
 button.primary:disabled {
   background: var(--primary);
-  background-color: var(--primary);
   color: white;
   opacity: 0.6;
   cursor: not-allowed;
