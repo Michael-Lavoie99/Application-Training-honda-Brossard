@@ -3,7 +3,7 @@
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   --bg: #f4f6fb;
   --panel: #ffffff;
-  --primary: #d01f1f;
+  --primary: #15803d;
   --secondary: #0f172a;
   --muted: #6b7280;
   --border: #e5e7eb;
@@ -91,7 +91,7 @@ h1 {
 .badge {
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(208, 31, 31, 0.1);
+  background: rgba(21, 128, 61, 0.12);
   color: var(--primary);
   font-weight: 600;
   font-size: 12px;
@@ -115,7 +115,7 @@ h1 {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: #fef2f2;
+  background: #ecfdf5;
   color: var(--primary);
   font-weight: 700;
   display: grid;
@@ -172,7 +172,16 @@ button {
 
 button.primary {
   background: var(--primary);
+  background-color: var(--primary);
   color: white;
+}
+
+button.primary:disabled {
+  background: var(--primary);
+  background-color: var(--primary);
+  color: white;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 button.secondary {
