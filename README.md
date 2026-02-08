@@ -21,21 +21,6 @@ Ouvrez `index.html` dans un navigateur ou lancez un serveur local :
 python -m http.server
 ```
 
-### Mise à jour automatique de l'application
-L'application peut se recharger automatiquement lorsqu'une nouvelle version est disponible (utile après un `git push` sur GitHub Pages ou lors d'un déploiement).
-
-Pour que l'auto‑mise à jour fonctionne :
-1. Servez l'application via HTTP (par exemple avec `python -m http.server` ou `start-windows.bat`).
-2. Après avoir fait vos changements, exécutez :
-
-```bash
-git add .
-git commit -m "Mise à jour"
-git push
-```
-
-L'application vérifie toutes les 60 secondes si la page a été mise à jour et se recharge automatiquement si c'est le cas.
-
 ## Publier sur GitHub Pages (pas à pas)
 ### Étape 1 : créer le dépôt GitHub
 1. Allez sur https://github.com/new
@@ -77,44 +62,12 @@ https://<votre-utilisateur>.github.io/<nom-du-depot>/
 
 Si vous me donnez votre **nom d'utilisateur GitHub** et le **nom du dépôt**, je peux vous écrire le lien exact.
 
-## Résoudre les conflits GitHub (pull request)
-Si GitHub affiche *"This branch has conflicts that must be resolved"* :
-
-### Option A : via l’interface GitHub
-1. Ouvrez la pull request.
-2. Cliquez sur **Resolve conflicts**.
-3. Dans chaque fichier, choisissez une option :
-   - **Accept current change** (garder la version de la branche cible)
-   - **Accept incoming change** (garder la version de votre branche)
-   - **Accept both changes** (garder les deux, puis corriger manuellement)
-4. Supprimez les marqueurs de conflit :
-   - `<<<<<<<`, `=======`, `>>>>>>>`
-5. Cliquez **Mark as resolved** puis **Commit merge**.
-
-### Option B : en ligne de commande
-```bash
-git checkout <votre-branche>
-git fetch origin
-git merge origin/main
-# Résolvez les conflits dans les fichiers indiqués
-git add .
-git commit -m "Resolve merge conflicts"
-git push
-```
-
-> Si vous voulez, donnez-moi la liste des fichiers en conflit et je vous indiquerai exactement quoi garder.
-
-### Me donner la liste des fichiers en conflit
-Dans votre terminal, vous pouvez copier/coller l’un de ces résultats :
-
-```bash
-git status --short
-```
-
-ou plus directement :
-
-```bash
-git diff --name-only --diff-filter=U
-```
-
-Ces commandes affichent les fichiers en conflit (marqués `UU`). Envoyez-moi la sortie et je vous guiderai fichier par fichier.
+## Dépannage GitHub Pages (erreur 404)
+Si vous voyez une page 404, vérifiez ces points :
+1. **URL exacte** : elle doit contenir le *nom du dépôt*.
+   - ✅ `https://utilisateur.github.io/nom-du-depot/`
+   - ❌ `https://utilisateur.github.io/` (ne fonctionne que si le dépôt s'appelle `utilisateur.github.io`)
+2. **Pages activé** : dans **Settings → Pages**, la source doit être `main` et `/ (root)`.
+3. **Attendre 1-2 minutes** : la première publication peut prendre un peu de temps.
+4. **Dépôt privé** : GitHub Pages gratuit ne fonctionne pas sur un dépôt privé.
+5. **Fichiers au bon endroit** : `index.html` doit être à la racine du dépôt (pas dans un sous-dossier).
