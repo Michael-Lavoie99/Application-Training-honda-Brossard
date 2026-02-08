@@ -164,53 +164,15 @@ const updateStage = () => {
 
 const normalize = (text) => text.toLowerCase();
 
-const questionStarters = [
-  "quoi",
-  "quel",
-  "quelle",
-  "quels",
-  "quelles",
-  "comment",
-  "combien",
-  "pourquoi",
-  "où",
-  "ou",
-  "quand",
-  "est-ce que",
-];
-
-const isQuestion = (text) => {
-  const normalized = normalize(text).trim();
-  if (normalized.includes("?")) {
-    return true;
-  }
-  return questionStarters.some((starter) => normalized.startsWith(starter));
-};
-
 const getStageReply = (stageIndex, sellerText) => {
   const stage = stages[stageIndex];
   const normalized = normalize(sellerText);
   const usedReplies = stageUsedReplies.get(stageIndex) ?? new Set();
-  const matchedReply = stage.dynamicReplies.find((item) =>
-    item.keywords.some((keyword) => normalized.includes(keyword))
+  let reply = stage.dynamicReplies.find(
+    (item) =>
+      !usedReplies.has(item.id) &&
+      item.keywords.some((keyword) => normalized.includes(keyword))
   );
-
-  if (isQuestion(sellerText)) {
-    if (matchedReply) {
-      if (!usedReplies.has(matchedReply.id)) {
-        usedReplies.add(matchedReply.id);
-        stageUsedReplies.set(stageIndex, usedReplies);
-      }
-      return matchedReply.text;
-    }
-    return "Pouvez-vous préciser votre question afin que je vous réponde clairement ?";
-  }
-
-  let reply = matchedReply
-    ? !usedReplies.has(matchedReply.id)
-      ? matchedReply
-      : undefined
-    : undefined;
 
   if (!reply) {
     reply = stage.dynamicReplies.find((item) => !usedReplies.has(item.id));
