@@ -3,10 +3,11 @@
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   --bg: #f4f6fb;
   --panel: #ffffff;
-  --primary: #15803d;
+  --primary: #d01f1f;
   --secondary: #0f172a;
   --muted: #6b7280;
   --border: #e5e7eb;
+  --success: #16a34a;
 }
 
 * {
@@ -90,29 +91,15 @@ h1 {
 .badge {
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(21, 128, 61, 0.12);
+  background: rgba(208, 31, 31, 0.1);
   color: var(--primary);
   font-weight: 600;
   font-size: 12px;
 }
 
-.chat-log {
+.chat {
   display: grid;
   gap: 16px;
-  max-height: 360px;
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.stage-divider {
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  border-left: 3px solid var(--primary);
-  padding: 6px 10px;
-  background: #f0fdf4;
-  border-radius: 8px;
 }
 
 .chat-row {
@@ -128,7 +115,7 @@ h1 {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: #f0fdf4;
+  background: #fef2f2;
   color: var(--primary);
   font-weight: 700;
   display: grid;
@@ -151,18 +138,6 @@ h1 {
   line-height: 1.5;
 }
 
-.chat-input {
-  margin-top: 20px;
-  display: grid;
-  gap: 10px;
-}
-
-.chat-input label {
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 600;
-}
-
 textarea {
   width: 100%;
   border-radius: 12px;
@@ -170,13 +145,7 @@ textarea {
   padding: 12px 14px;
   font-size: 14px;
   resize: vertical;
-  min-height: 110px;
-}
-
-.input-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
+  min-height: 120px;
 }
 
 .actions {
@@ -186,6 +155,11 @@ textarea {
   margin-top: 16px;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.action-group {
+  display: flex;
+  gap: 12px;
 }
 
 button {
@@ -210,11 +184,6 @@ button.ghost {
   background: transparent;
   color: var(--muted);
   border: 1px solid var(--border);
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .helper {
