@@ -188,18 +188,25 @@ const submitResponse = () => {
 
   const stage = stages[currentStage];
   const clientReply = stage.clientReplies[replyIndex];
-  if (clientReply) {
+  if (clientReply !== undefined) {
     addMessage("client", clientReply);
     replyIndex += 1;
+  } else {
+    addMessage(
+      "client",
+      "Merci pour ces précisions. Je suis prêt à passer à l'étape suivante."
+    );
+    nextStepButton.disabled = false;
   }
 
   enableNextStepIfReady();
+  sellerResponse.focus();
 };
 
 sendResponseButton.addEventListener("click", submitResponse);
 
 sellerResponse.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && !event.shiftKey) {
+  if ((event.key === "Enter" || event.key === "NumpadEnter") && !event.shiftKey) {
     event.preventDefault();
     submitResponse();
   }
