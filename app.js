@@ -164,70 +164,15 @@ const updateStage = () => {
 
 const normalize = (text) => text.toLowerCase();
 
-const questionStarters = [
-  "quoi",
-  "quel",
-  "quelle",
-  "quels",
-  "quelles",
-  "comment",
-  "combien",
-  "pourquoi",
-  "où",
-  "ou",
-  "quand",
-  "est-ce que",
-];
-
-const generalQuestionReplies = [
-  {
-    keywords: ["nom", "appel", "appeler"],
-    text: "Je m'appelle Alex Martin.",
-  },
-  {
-    keywords: ["courriel", "email", "adresse"],
-    text: "Vous pouvez me joindre par courriel à alex.martin@example.com.",
-  },
-];
-
-const isQuestion = (text) => {
-  const normalized = normalize(text).trim();
-  if (normalized.includes("?")) {
-    return true;
-  }
-  return questionStarters.some((starter) => normalized.startsWith(starter));
-};
-
 const getStageReply = (stageIndex, sellerText) => {
   const stage = stages[stageIndex];
   const normalized = normalize(sellerText);
   const usedReplies = stageUsedReplies.get(stageIndex) ?? new Set();
-  const generalReply = generalQuestionReplies.find((item) =>
-    item.keywords.some((keyword) => normalized.includes(keyword))
+  let reply = stage.dynamicReplies.find(
+    (item) =>
+      !usedReplies.has(item.id) &&
+      item.keywords.some((keyword) => normalized.includes(keyword))
   );
-  const matchedReply = stage.dynamicReplies.find((item) =>
-    item.keywords.some((keyword) => normalized.includes(keyword))
-  );
-
-  if (isQuestion(sellerText)) {
-    if (generalReply) {
-      return generalReply.text;
-    }
-    if (matchedReply) {
-      if (!usedReplies.has(matchedReply.id)) {
-        usedReplies.add(matchedReply.id);
-        stageUsedReplies.set(stageIndex, usedReplies);
-      }
-      return matchedReply.text;
-    }
-    return "Pouvez-vous préciser votre question afin que je vous réponde clairement ?";
-  }
-
-  let reply = matchedReply
-    ? !usedReplies.has(matchedReply.id)
-      ? matchedReply
-      : undefined
-    : undefined;
 
   if (!reply) {
     reply = stage.dynamicReplies.find((item) => !usedReplies.has(item.id));
