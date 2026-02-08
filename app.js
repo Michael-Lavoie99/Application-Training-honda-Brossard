@@ -4,29 +4,72 @@ const stages = [
     hint: "Lancez l'échange avec des questions ouvertes sur l'usage, la famille et le budget.",
     clientOpening:
       "Bonjour, je cherche un véhicule pour ma famille. Je fais beaucoup de route et je veux du confort.",
-    clientReplies: [
-      "Nous sommes 4 à la maison et je fais environ 20 000 km par an.",
-      "Le budget mensuel idéal serait autour de 600 $.",
+    dynamicReplies: [
+      {
+        id: "usage",
+        keywords: ["km", "route", "trajet", "usage", "quotidien", "autoroute"],
+        text: "Je fais beaucoup de route, environ 20 000 km par an, surtout sur l'autoroute.",
+      },
+      {
+        id: "famille",
+        keywords: ["famille", "enfant", "place", "passager", "bébé"],
+        text: "Nous sommes 4 à la maison avec deux enfants, donc l'espace est important.",
+      },
+      {
+        id: "budget",
+        keywords: ["budget", "mensuel", "paiement", "financement"],
+        text: "Le budget mensuel idéal serait autour de 600 $.",
+      },
     ],
+    closingReply: "Parfait, cela répond bien à mes questions pour commencer.",
   },
   {
     title: "Valeur",
     hint: "Reliez les besoins à des bénéfices : sécurité, technologie, garantie, financement.",
     clientOpening:
       "J'hésite entre un VUS compact et une berline. Je veux être sûr de faire le bon choix.",
-    clientReplies: [
-      "Je veux surtout que ce soit fiable et sécuritaire pour les enfants.",
-      "Je ne veux pas perdre trop de temps à l'entretien.",
+    dynamicReplies: [
+      {
+        id: "securite",
+        keywords: ["sécurité", "securite", "enfant", "assist", "airbag"],
+        text: "La sécurité pour les enfants est vraiment ma priorité.",
+      },
+      {
+        id: "fiabilite",
+        keywords: ["fiable", "fiabilité", "garantie", "durable"],
+        text: "Je veux quelque chose de fiable avec une bonne garantie.",
+      },
+      {
+        id: "entretien",
+        keywords: ["entretien", "temps", "service", "maintenance"],
+        text: "Je préfère un véhicule qui ne demande pas trop d'entretien.",
+      },
     ],
+    closingReply: "Merci, c'est rassurant. J'aimerais voir comment cela se compare concrètement.",
   },
   {
     title: "Objections et prochaine étape",
     hint: "Traitez l'objection et proposez un essai routier ou un rendez-vous clair.",
     clientOpening:
       "Un autre concessionnaire me propose un rabais de 1 000 $.",
-    clientReplies: [
-      "Je dois en parler avec ma conjointe avant de décider.",
+    dynamicReplies: [
+      {
+        id: "rabais",
+        keywords: ["rabais", "prix", "offre", "concurrent", "compar"],
+        text: "Le rabais est intéressant, mais je veux comprendre la différence globale.",
+      },
+      {
+        id: "reflexion",
+        keywords: ["réfléchir", "penser", "conjointe", "décider", "decision"],
+        text: "Je dois en parler avec ma conjointe avant de décider.",
+      },
+      {
+        id: "essai",
+        keywords: ["essai", "rendez-vous", "planifier", "visite"],
+        text: "Un essai routier m'aiderait à me décider.",
+      },
     ],
+    closingReply: "Merci, je suis prêt à convenir de la prochaine étape.",
   },
 ];
 
@@ -54,7 +97,7 @@ const rubric = [
 ];
 
 let currentStage = 0;
-let replyIndex = 0;
+const stageUsedReplies = new Map();
 let stageResponseCount = 0;
 let isComplete = false;
 const responses = [];
@@ -109,8 +152,8 @@ const addStageDivider = (stage) => {
 
 const updateStage = () => {
   const stage = stages[currentStage];
-  replyIndex = 0;
   stageResponseCount = 0;
+  stageUsedReplies.set(currentStage, new Set());
   stepIndicator.textContent = `Étape ${currentStage + 1} / ${stages.length} · ${stage.title}`;
   helperText.textContent = `Conseil : ${stage.hint}`;
   sellerResponse.value = "";
@@ -120,6 +163,29 @@ const updateStage = () => {
 };
 
 const normalize = (text) => text.toLowerCase();
+
+const getStageReply = (stageIndex, sellerText) => {
+  const stage = stages[stageIndex];
+  const normalized = normalize(sellerText);
+  const usedReplies = stageUsedReplies.get(stageIndex) ?? new Set();
+  let reply = stage.dynamicReplies.find(
+    (item) =>
+      !usedReplies.has(item.id) &&
+      item.keywords.some((keyword) => normalized.includes(keyword))
+  );
+
+  if (!reply) {
+    reply = stage.dynamicReplies.find((item) => !usedReplies.has(item.id));
+  }
+
+  if (reply) {
+    usedReplies.add(reply.id);
+    stageUsedReplies.set(stageIndex, usedReplies);
+    return reply.text;
+  }
+
+  return stage.closingReply;
+};
 
 const calculateScore = () => {
   let total = 0;
@@ -168,7 +234,8 @@ const enableNextStepIfReady = () => {
   if (stageResponseCount === 0) {
     return;
   }
-  if (replyIndex >= stages[currentStage].clientReplies.length) {
+  const usedReplies = stageUsedReplies.get(currentStage) ?? new Set();
+  if (usedReplies.size >= stages[currentStage].dynamicReplies.length) {
     nextStepButton.disabled = false;
   }
 };
@@ -186,20 +253,10 @@ const submitResponse = () => {
   addMessage("seller", response);
   sellerResponse.value = "";
 
-  const stage = stages[currentStage];
-  const clientReply = stage.clientReplies[replyIndex];
-  if (clientReply !== undefined) {
-    addMessage("client", clientReply);
-    replyIndex += 1;
-  } else {
-    addMessage(
-      "client",
-      "Merci pour ces précisions. Je suis prêt à passer à l'étape suivante."
-    );
-    nextStepButton.disabled = false;
-  }
-
+  const clientReply = getStageReply(currentStage, response);
+  addMessage("client", clientReply);
   enableNextStepIfReady();
+
   sellerResponse.focus();
 };
 
@@ -228,6 +285,7 @@ restartButton.addEventListener("click", () => {
   responses.length = 0;
   currentStage = 0;
   isComplete = false;
+  stageUsedReplies.clear();
   chatLog.innerHTML = "";
   scoreValue.textContent = "-";
   scoreNote.textContent =
