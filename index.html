@@ -51,6 +51,49 @@
           <p class="helper" id="helper-text">
             Conseil : explorez le contexte du client avant de proposer un modèle.
           </p>
+          <div class="ai-panel">
+            <div class="ai-header">
+              <div>
+                <h3>Mode IA (ChatGPT)</h3>
+                <p class="ai-subtitle">
+                  Activez l'IA pour des réponses plus flexibles et fluides pendant la simulation.
+                </p>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="ai-toggle" />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="ai-grid">
+              <label class="ai-field">
+                <span>Clé API OpenAI</span>
+                <input
+                  type="password"
+                  id="ai-api-key"
+                  placeholder="sk-..."
+                  autocomplete="off"
+                />
+              </label>
+              <label class="ai-field">
+                <span>Modèle IA</span>
+                <select id="ai-model">
+                  <option value="gpt-4o-mini">gpt-4o-mini</option>
+                  <option value="gpt-4o">gpt-4o</option>
+                </select>
+              </label>
+            </div>
+            <label class="ai-field">
+              <span>Brief IA (contexte client)</span>
+              <textarea
+                id="ai-system"
+                rows="3"
+                placeholder="Ex: Tu es un client Honda Brossard. Tu réponds naturellement et poses des questions pertinentes."
+              ></textarea>
+            </label>
+            <p class="ai-status" id="ai-status">
+              IA désactivée. Les réponses du client utilisent le script de formation.
+            </p>
+          </div>
         </section>
 
         <aside class="panel score-panel">

@@ -1005,6 +1005,16 @@ const scoreList = document.getElementById("score-list");
 const sendResponseButton = document.getElementById("send-response");
 const nextStepButton = document.getElementById("next-step");
 const restartButton = document.getElementById("restart");
+const aiToggle = document.getElementById("ai-toggle");
+const aiApiKeyInput = document.getElementById("ai-api-key");
+const aiModelSelect = document.getElementById("ai-model");
+const aiSystemPromptInput = document.getElementById("ai-system");
+const aiStatus = document.getElementById("ai-status");
+
+const AI_STORAGE_KEY = "honda-brossard-ai-settings";
+const aiConversation = [];
+let isAwaitingAi = false;
+let aiSystemPromptTouched = false;
 
 const scrollToBottom = () => {
   chatLog.scrollTop = chatLog.scrollHeight;
@@ -1035,6 +1045,31 @@ const addMessage = (author, text) => {
   scrollToBottom();
 };
 
+const addTypingMessage = (author) => {
+  const row = document.createElement("div");
+  row.className = `chat-row ${author}`;
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = author === "client" ? "CL" : "VS";
+
+  const bubbleWrapper = document.createElement("div");
+  const label = document.createElement("p");
+  label.className = "chat-label";
+  label.textContent = author === "client" ? "Client" : "Vendeur";
+  const bubble = document.createElement("p");
+  bubble.className = "chat-bubble typing";
+  bubble.textContent = "…";
+
+  bubbleWrapper.appendChild(label);
+  bubbleWrapper.appendChild(bubble);
+  row.appendChild(avatar);
+  row.appendChild(bubbleWrapper);
+  chatLog.appendChild(row);
+  scrollToBottom();
+  return bubble;
+};
+
 const addStageDivider = (stage) => {
   const divider = document.createElement("div");
   divider.className = "stage-divider";
@@ -1053,6 +1088,9 @@ const updateStage = () => {
   nextStepButton.disabled = true;
   addStageDivider(stage);
   addMessage("client", stage.clientOpening);
+  if (!aiSystemPromptTouched && aiSystemPromptInput) {
+    aiSystemPromptInput.value = buildAiSystemPrompt(currentStage);
+  }
 };
 
 const normalize = (text) => text.toLowerCase();
@@ -1152,6 +1190,91 @@ const getStageReply = (stageIndex, sellerText) => {
   return "Pour que je vous réponde, posez-moi une question en lien avec votre dernier point.";
 };
 
+const isAiEnabled = () => aiToggle?.checked && aiApiKeyInput?.value.trim().length > 0;
+
+const buildAiSystemPrompt = (stageIndex) => {
+  const stage = stages[stageIndex];
+  return `Tu es un client de la concession Honda Brossard. Tu réponds naturellement, de façon fluide, avec des questions pertinentes quand c'est utile. Profil client : ${activePersona.name}, ${activePersona.openings[`stage${stageIndex + 1}`]}. Objectif de l'étape : ${stage.title}. Contexte attendu : ${stage.hint}`;
+};
+
+const updateAiStatus = (message, isError = false) => {
+  if (!aiStatus) {
+    return;
+  }
+  aiStatus.textContent = message;
+  aiStatus.style.color = isError ? "#b91c1c" : "#475569";
+};
+
+const persistAiSettings = () => {
+  const payload = {
+    enabled: aiToggle?.checked ?? false,
+    apiKey: aiApiKeyInput?.value ?? "",
+    model: aiModelSelect?.value ?? "gpt-4o-mini",
+    systemPrompt: aiSystemPromptInput?.value ?? "",
+  };
+  localStorage.setItem(AI_STORAGE_KEY, JSON.stringify(payload));
+};
+
+const restoreAiSettings = () => {
+  const stored = localStorage.getItem(AI_STORAGE_KEY);
+  if (!stored) {
+    return;
+  }
+  const parsed = JSON.parse(stored);
+  if (aiToggle) {
+    aiToggle.checked = Boolean(parsed.enabled);
+  }
+  if (aiApiKeyInput) {
+    aiApiKeyInput.value = parsed.apiKey ?? "";
+  }
+  if (aiModelSelect && parsed.model) {
+    aiModelSelect.value = parsed.model;
+  }
+  if (aiSystemPromptInput && parsed.systemPrompt) {
+    aiSystemPromptInput.value = parsed.systemPrompt;
+    aiSystemPromptTouched = parsed.systemPrompt.length > 0;
+  }
+};
+
+const buildAiMessages = () => {
+  const systemPrompt = aiSystemPromptInput?.value.trim() || buildAiSystemPrompt(currentStage);
+  return [
+    {
+      role: "system",
+      content: systemPrompt,
+    },
+    ...aiConversation,
+  ];
+};
+
+const getAiReply = async () => {
+  const payload = {
+    model: aiModelSelect?.value ?? "gpt-4o-mini",
+    messages: buildAiMessages(),
+    temperature: 0.7,
+  };
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${aiApiKeyInput.value.trim()}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    throw new Error("Réponse API invalide");
+  }
+
+  const data = await response.json();
+  const content = data.choices?.[0]?.message?.content?.trim();
+  if (!content) {
+    throw new Error("Réponse IA vide");
+  }
+  return content;
+};
+
 const calculateStageScore = (stageIndex) => {
   const stageRubric = rubric.filter((criterion) => criterion.stageIndex === stageIndex);
   const stageText = stageResponses.get(stageIndex) ?? [];
@@ -1219,14 +1342,19 @@ const enableNextStepIfReady = () => {
   if (stageResponseCount === 0) {
     return;
   }
-  const usedReplies = stageUsedReplies.get(currentStage) ?? new Set();
-  if (usedReplies.size >= stages[currentStage].dynamicReplies.length) {
-    nextStepButton.disabled = false;
+  if (isAiEnabled()) {
+    nextStepButton.disabled = stageResponseCount < 2;
+    return;
   }
+  const usedReplies = stageUsedReplies.get(currentStage) ?? new Set();
+  nextStepButton.disabled = usedReplies.size < stages[currentStage].dynamicReplies.length;
 };
 
-const submitResponse = () => {
+const submitResponse = async () => {
   if (isComplete) {
+    return;
+  }
+  if (isAwaitingAi) {
     return;
   }
   const response = sellerResponse.value.trim();
@@ -1240,10 +1368,39 @@ const submitResponse = () => {
   stageResponseCount += 1;
   addMessage("seller", response);
   sellerResponse.value = "";
+  aiConversation.push({ role: "user", content: response });
 
-  const clientReply = getStageReply(currentStage, response);
-  addMessage("client", clientReply);
-  enableNextStepIfReady();
+  if (isAiEnabled()) {
+    isAwaitingAi = true;
+    sendResponseButton.disabled = true;
+    updateAiStatus("IA en cours de réponse...", false);
+    const typingBubble = addTypingMessage("client");
+    try {
+      const aiReply = await getAiReply();
+      typingBubble.textContent = aiReply;
+      typingBubble.classList.remove("typing");
+      aiConversation.push({ role: "assistant", content: aiReply });
+      updateAiStatus("IA activée : réponses fluides en temps réel.");
+    } catch (error) {
+      const fallbackReply = getStageReply(currentStage, response);
+      typingBubble.textContent = fallbackReply;
+      typingBubble.classList.remove("typing");
+      aiConversation.push({ role: "assistant", content: fallbackReply });
+      updateAiStatus(
+        "Impossible de joindre l'IA. Retour au script de formation.",
+        true
+      );
+    } finally {
+      isAwaitingAi = false;
+      sendResponseButton.disabled = false;
+      enableNextStepIfReady();
+    }
+  } else {
+    const clientReply = getStageReply(currentStage, response);
+    addMessage("client", clientReply);
+    aiConversation.push({ role: "assistant", content: clientReply });
+    enableNextStepIfReady();
+  }
 
   sellerResponse.focus();
 };
@@ -1275,6 +1432,7 @@ restartButton.addEventListener("click", () => {
   isComplete = false;
   stageUsedReplies.clear();
   stageResponses.clear();
+  aiConversation.length = 0;
   chatLog.innerHTML = "";
   scoreValue.textContent = "-";
   scoreNote.textContent =
@@ -1283,5 +1441,47 @@ restartButton.addEventListener("click", () => {
   sendResponseButton.disabled = false;
   updateStage();
 });
+
+aiToggle.addEventListener("change", () => {
+  if (aiToggle.checked && !aiApiKeyInput.value.trim()) {
+    updateAiStatus("Ajoutez une clé API pour activer l'IA.", true);
+    aiToggle.checked = false;
+    return;
+  }
+  updateAiStatus(
+    aiToggle.checked
+      ? "IA activée : réponses fluides en temps réel."
+      : "IA désactivée. Les réponses du client utilisent le script de formation.",
+    false
+  );
+  persistAiSettings();
+});
+
+aiApiKeyInput.addEventListener("input", () => {
+  if (aiToggle.checked && !aiApiKeyInput.value.trim()) {
+    updateAiStatus("Ajoutez une clé API pour activer l'IA.", true);
+  } else if (aiToggle.checked) {
+    updateAiStatus("IA activée : réponses fluides en temps réel.");
+  }
+  persistAiSettings();
+});
+
+aiModelSelect.addEventListener("change", persistAiSettings);
+
+aiSystemPromptInput.addEventListener("input", () => {
+  aiSystemPromptTouched = true;
+  persistAiSettings();
+});
+
+restoreAiSettings();
+if (!aiSystemPromptTouched) {
+  aiSystemPromptInput.value = buildAiSystemPrompt(currentStage);
+}
+updateAiStatus(
+  aiToggle.checked && aiApiKeyInput.value.trim()
+    ? "IA activée : réponses fluides en temps réel."
+    : "IA désactivée. Les réponses du client utilisent le script de formation.",
+  aiToggle.checked && !aiApiKeyInput.value.trim()
+);
 
 updateStage();
