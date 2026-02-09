@@ -1,7 +1,8 @@
 const stages = [
   {
-    title: "Découverte",
-    hint: "Lancez l'échange avec des questions ouvertes sur l'usage, la famille et le budget.",
+    title: "Qualification des besoins",
+    hint:
+      "Couvrez les 6 pours : pour qui, pourquoi changer, pourquoi nous, pour quand, pour quelle utilisation, pour quel budget.",
     clientOpening:
       "Bonjour, je cherche un véhicule pour ma famille. Je fais beaucoup de route et je veux du confort.",
     dynamicReplies: [
@@ -24,8 +25,9 @@ const stages = [
     closingReply: "Parfait, cela répond bien à mes questions pour commencer.",
   },
   {
-    title: "Valeur",
-    hint: "Reliez les besoins à des bénéfices : sécurité, technologie, garantie, financement.",
+    title: "Présentation et essai",
+    hint:
+      "Mettez en avant caractéristiques, avantages, bénéfices, puis proposez et animez l'essai routier.",
     clientOpening:
       "J'hésite entre un VUS compact et une berline. Je veux être sûr de faire le bon choix.",
     dynamicReplies: [
@@ -48,8 +50,9 @@ const stages = [
     closingReply: "Merci, c'est rassurant. J'aimerais voir comment cela se compare concrètement.",
   },
   {
-    title: "Objections et prochaine étape",
-    hint: "Traitez l'objection et proposez un essai routier ou un rendez-vous clair.",
+    title: "Présentation de l'offre",
+    hint:
+      "Présentez un scénario complet, proposez des produits connexes et traitez les objections.",
     clientOpening:
       "Un autre concessionnaire me propose un rabais de 1 000 $.",
     dynamicReplies: [
@@ -75,24 +78,31 @@ const stages = [
 
 const rubric = [
   {
-    label: "Questions ouvertes et découverte des besoins",
-    keywords: ["besoin", "habitude", "famille", "usage", "priorité", "objectif", "budget"],
+    stageIndex: 0,
+    label: "Qualification des besoins (6 pours)",
+    keywords: [
+      "pour qui",
+      "famille",
+      "pourquoi",
+      "changer",
+      "pourquoi nous",
+      "quand",
+      "utilisation",
+      "budget",
+    ],
+    weight: 4,
+  },
+  {
+    stageIndex: 1,
+    label: "Présentation et essai (caractéristiques, bénéfices, émotion)",
+    keywords: ["caractéristique", "avantage", "bénéfice", "essai", "sécurité", "confort", "émotion"],
     weight: 3,
   },
   {
-    label: "Valeur et bénéfices client",
-    keywords: ["sécurité", "économie", "confort", "technologie", "fiabilité", "garantie"],
+    stageIndex: 2,
+    label: "Présentation de l'offre (produits, objections, valeur)",
+    keywords: ["offre", "garantie", "antirouille", "protection", "objection", "valeur", "rabais"],
     weight: 3,
-  },
-  {
-    label: "Traitement des objections",
-    keywords: ["comprendre", "compar", "avantage", "service", "différence", "rabais"],
-    weight: 2,
-  },
-  {
-    label: "Prochaine étape claire",
-    keywords: ["essai", "rendez-vous", "devis", "prochaine", "planifier", "appel"],
-    weight: 2,
   },
 ];
 
@@ -190,8 +200,9 @@ const getStageReply = (stageIndex, sellerText) => {
 const calculateScore = () => {
   let total = 0;
   const feedback = [];
-  rubric.forEach((criterion) => {
-    const matches = responses.filter((response) =>
+
+  stageRubric.forEach((criterion) => {
+    const matches = stageText.filter((response) =>
       criterion.keywords.some((keyword) => normalize(response).includes(keyword))
     ).length;
     const score = matches > 0 ? criterion.weight : Math.max(0, criterion.weight - 1);
@@ -201,7 +212,7 @@ const calculateScore = () => {
     );
   });
 
-  const lengthScore = responses.some((response) => response.trim().length > 70) ? 0 : 1;
+  const lengthScore = stageText.some((response) => response.trim().length > 70) ? 0 : 1;
   total = Math.min(10, total + lengthScore);
   feedback.push(
     lengthScore === 0
@@ -211,6 +222,23 @@ const calculateScore = () => {
 
   return {
     total,
+    feedback,
+  };
+};
+
+const calculateScore = () => {
+  const feedback = [];
+  const totals = stages.map((_, index) => {
+    const { total, feedback: stageFeedback } = calculateStageScore(index);
+    feedback.push(`Étape ${index + 1}`);
+    feedback.push(...stageFeedback);
+    return total;
+  });
+
+  const average = totals.reduce((sum, value) => sum + value, 0) / totals.length;
+
+  return {
+    total: Math.round(average * 10) / 10,
     feedback,
   };
 };
@@ -249,6 +277,9 @@ const submitResponse = () => {
     return;
   }
   responses.push(response);
+  const stageResponsesList = stageResponses.get(currentStage) ?? [];
+  stageResponsesList.push(response);
+  stageResponses.set(currentStage, stageResponsesList);
   stageResponseCount += 1;
   addMessage("seller", response);
   sellerResponse.value = "";
