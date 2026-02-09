@@ -2,79 +2,80 @@ const stages = [
   {
     title: "Qualification des besoins",
     hint:
-      "Couvrez les 6 pours : pour qui, pourquoi changer, pourquoi nous, pour quand, pour quelle utilisation, pour quel budget.",
+      "Couvrez les 6 pours avec une discussion fluide : pour qui, pourquoi changer, pourquoi nous, pour quand, pour quelle utilisation, pour quel budget.",
     clientOpening:
-      "Bonjour, je regarde pour changer de véhicule et j'aimerais voir ce qui pourrait convenir.",
+      "Bonjour, je souhaite changer de véhicule et j'aimerais qu'on en discute.",
     dynamicReplies: [
       {
         id: "pour-qui",
         keywords: ["pour qui", "famille", "enfant", "passager", "utilisateur"],
-        text: "Ce serait surtout pour moi et ma famille, on est quatre.",
+        text: "Ce serait pour moi et ma conjointe, avec deux enfants, donc 4 personnes.",
       },
       {
         id: "pourquoi-changer",
         keywords: ["pourquoi", "changer", "remplacer", "actuel"],
-        text: "Je veux changer parce que mon véhicule actuel commence à coûter cher en entretien.",
+        text: "Je veux changer parce que mon véhicule actuel me coûte trop cher en entretien.",
       },
       {
         id: "pourquoi-nous",
         keywords: ["pourquoi nous", "pourquoi honda", "choisi", "concession", "recommand"],
-        text: "J'ai entendu de bons commentaires sur Honda Brossard et sur votre service.",
+        text: "On m'a recommandé Honda Brossard et j'ai aimé l'approche de votre équipe.",
       },
       {
         id: "pour-quand",
         keywords: ["quand", "délai", "besoin", "rapidement", "bientôt"],
-        text: "Idéalement, j'aimerais changer d'ici deux mois.",
+        text: "Idéalement, j'aimerais changer d'ici 6 à 8 semaines.",
       },
       {
         id: "utilisation",
         keywords: ["usage", "utilisation", "route", "km", "trajet", "autoroute"],
-        text: "Je fais environ 20 000 km par an, surtout de l'autoroute et des déplacements familiaux.",
+        text: "Je fais environ 20 000 km par an, surtout autoroute, école et activités familiales.",
       },
       {
         id: "budget",
         keywords: ["budget", "mensuel", "paiement", "financement", "prix"],
-        text: "Je vise un paiement autour de 600 $ par mois.",
+        text: "Je vise un paiement autour de 600 $ par mois, financement inclus.",
       },
     ],
-    closingReply: "Vous avez fait un bon tour de mes besoins, merci.",
+    closingReply: "Vous avez bien compris mes besoins, merci.",
   },
   {
     title: "Présentation et essai",
     hint:
-      "Mettez en avant caractéristiques, avantages, bénéfices, puis proposez et animez l'essai routier.",
+      "Présentez capot/valise : caractéristiques, avantages, bénéfices, puis animez l'essai routier et créez de l'émotion.",
     clientOpening:
-      "Je suis curieux d'en savoir plus sur le véhicule et de voir ce qu'il propose.",
+      "J'aimerais une présentation complète, surtout sur ce qu'il y a sous le capot.",
     dynamicReplies: [
       {
         id: "caracteristiques",
         keywords: ["caractéristique", "moteur", "technologie", "équipement", "capot"],
-        text: "J'aime bien les caractéristiques mentionnées, surtout la technologie embarquée.",
+        text: "La motorisation et la technologie m'intéressent, surtout si c'est simple à utiliser.",
       },
       {
         id: "avantages",
         keywords: ["avantage", "bénéfice", "confort", "sécurité", "securite"],
-        text: "Le confort et la sécurité sont vraiment importants pour moi.",
+        text: "Le confort et la sécurité sont prioritaires pour moi et ma famille.",
       },
       {
         id: "essai",
         keywords: ["essai", "routier", "conduite", "tester"],
-        text: "Oui, un essai routier m'aiderait à me projeter.",
+        text: "Oui, un essai routier serait idéal pour valider la conduite.",
       },
       {
         id: "emotion",
         keywords: ["plaisir", "émotion", "expérience", "impression", "enthousiasme"],
-        text: "Je dois dire que l'expérience me donne envie, c'est motivant.",
+        text: "L'essai me donne vraiment envie, je me projette déjà.",
       },
     ],
-    closingReply: "Merci, la présentation est claire et l'essai m'a mis en confiance.",
+    closingReply:
+      "Merci, la présentation est claire et l'essai m'a mis en confiance.",
   },
   {
     title: "Présentation de l'offre",
     hint:
-      "Présentez un scénario complet, proposez des produits connexes et traitez les objections.",
+      "Présentez un scénario complet, produits connexes, valeur perçue, puis traitez les objections et rapprochez-vous de la vente.",
     clientOpening:
-      "Je veux voir l'offre complète et comprendre ce qui est inclus.",
+      "Je veux voir l'offre complète, avec les options et les protections possibles.",
     dynamicReplies: [
       {
         id: "details-offre",
@@ -84,17 +85,17 @@ const stages = [
       {
         id: "produits",
         keywords: ["pneus", "garantie", "antirouille", "protection", "pellicule", "tag"],
-        text: "Les protections, pneus et garanties supplémentaires m'intéressent si elles ont de la valeur.",
+        text: "Les protections, pneus et garanties m'intéressent si je vois la valeur.",
       },
       {
         id: "objection-prix",
         keywords: ["rabais", "prix", "cher", "concurrent", "compar"],
-        text: "Je trouve le prix un peu élevé comparé à ce que j'ai vu ailleurs.",
+        text: "Je trouve le prix un peu élevé par rapport à ce que j'ai vu ailleurs.",
       },
       {
         id: "engagement",
         keywords: ["décider", "signature", "réserver", "aller de l'avant"],
-        text: "Si vous pouvez ajuster un peu, je serais prêt à avancer.",
+        text: "Si on ajuste légèrement, je serais prêt à avancer aujourd'hui.",
       },
     ],
     closingReply: "Merci, le scénario est clair et je vois mieux la valeur.",
@@ -104,7 +105,7 @@ const stages = [
 const rubric = [
   {
     stageIndex: 0,
-    label: "Qualification des besoins (6 pours)",
+    label: "Qualification des besoins (6 pours, fluide et complète)",
     keywords: [
       "pour qui",
       "famille",
@@ -119,9 +120,10 @@ const rubric = [
   },
   {
     stageIndex: 1,
-    label: "Présentation et essai (caractéristiques, bénéfices, émotion)",
+    label: "Présentation et essai (capot/valise, bénéfices, émotion)",
     keywords: [
       "caractéristique",
+      "valise",
       "capot",
       "moteur",
       "avantage",
@@ -135,7 +137,7 @@ const rubric = [
   },
   {
     stageIndex: 2,
-    label: "Présentation de l'offre (produits, objections, valeur)",
+    label: "Présentation de l'offre (produits, objections, valeur, conclusion)",
     keywords: [
       "offre",
       "pneus",
@@ -147,6 +149,8 @@ const rubric = [
       "valeur",
       "rabais",
       "tag",
+      "conclure",
+      "signature",
     ],
     weight: 3,
   },
