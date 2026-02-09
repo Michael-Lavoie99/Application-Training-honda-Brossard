@@ -1020,9 +1020,9 @@ const scrollToBottom = () => {
   chatLog.scrollTop = chatLog.scrollHeight;
 };
 
-const addMessage = (author, text) => {
+const addMessage = (author, text, options = {}) => {
   const row = document.createElement("div");
-  row.className = `chat-row ${author}`;
+  row.className = `chat-row ${author}${options.isAi ? " ai" : ""}`;
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
@@ -1031,7 +1031,8 @@ const addMessage = (author, text) => {
   const bubbleWrapper = document.createElement("div");
   const label = document.createElement("p");
   label.className = "chat-label";
-  label.textContent = author === "client" ? "Client" : "Vendeur";
+  label.textContent =
+    author === "client" ? (options.isAi ? "Client (IA)" : "Client") : "Vendeur";
   const bubble = document.createElement("p");
   bubble.className = "chat-bubble";
   bubble.textContent = text;
@@ -1045,9 +1046,9 @@ const addMessage = (author, text) => {
   scrollToBottom();
 };
 
-const addTypingMessage = (author) => {
+const addTypingMessage = (author, options = {}) => {
   const row = document.createElement("div");
-  row.className = `chat-row ${author}`;
+  row.className = `chat-row ${author}${options.isAi ? " ai" : ""}`;
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
@@ -1056,7 +1057,8 @@ const addTypingMessage = (author) => {
   const bubbleWrapper = document.createElement("div");
   const label = document.createElement("p");
   label.className = "chat-label";
-  label.textContent = author === "client" ? "Client" : "Vendeur";
+  label.textContent =
+    author === "client" ? (options.isAi ? "Client (IA)" : "Client") : "Vendeur";
   const bubble = document.createElement("p");
   bubble.className = "chat-bubble typing";
   bubble.textContent = "…";
@@ -1374,7 +1376,7 @@ const submitResponse = async () => {
     isAwaitingAi = true;
     sendResponseButton.disabled = true;
     updateAiStatus("IA en cours de réponse...", false);
-    const typingBubble = addTypingMessage("client");
+    const typingBubble = addTypingMessage("client", { isAi: true });
     try {
       const aiReply = await getAiReply();
       typingBubble.textContent = aiReply;
