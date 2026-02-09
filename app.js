@@ -1120,23 +1120,7 @@ const getStageReply = (stageIndex, sellerText) => {
     return "Pouvez-vous préciser votre question afin que je vous réponde clairement ?";
   }
 
-  let reply = matchedReply
-    ? !usedReplies.has(matchedReply.id)
-      ? matchedReply
-      : undefined
-    : undefined;
-
-  if (!reply) {
-    reply = stage.dynamicReplies.find((item) => !usedReplies.has(item.id));
-  }
-
-  if (reply) {
-    usedReplies.add(reply.id);
-    stageUsedReplies.set(stageIndex, usedReplies);
-    return reply.text;
-  }
-
-  return stage.closingReply;
+  return "Pour que je vous réponde, posez-moi une question en lien avec votre dernier point.";
 };
 
 const calculateStageScore = (stageIndex) => {
