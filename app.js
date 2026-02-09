@@ -2,17 +2,17 @@ const stageMeta = [
   {
     title: "Qualification des besoins",
     hint:
-      "Couvrez les 6 pours avec une discussion fluide : pour qui, pourquoi changer, pourquoi nous, pour quand, pour quelle utilisation, pour quel budget.",
+      "Couvrez les 6 pours avec une discussion fluide : pour qui, pourquoi changer, pourquoi nous, pour quand, pour quelle utilisation, pour quel budget. Si une question sort du scénario, notez-la et proposez de vérifier.",
   },
   {
     title: "Présentation et essai",
     hint:
-      "Présentez capot/valise : caractéristiques, avantages, bénéfices, puis animez l'essai routier et créez de l'émotion.",
+      "Présentez capot/valise : caractéristiques, avantages, bénéfices, puis animez l'essai routier et créez de l'émotion. Répondez aussi aux questions hors scénario en proposant un suivi.",
   },
   {
     title: "Présentation de l'offre",
     hint:
-      "Présentez un scénario complet, produits connexes, valeur perçue, puis traitez les objections et rapprochez-vous de la vente.",
+      "Présentez un scénario complet, produits connexes, valeur perçue, puis traitez les objections et rapprochez-vous de la vente. Si un détail manque, engagez-vous à le vérifier.",
   },
 ];
 
@@ -1087,6 +1087,29 @@ const generalQuestionReplies = [
   },
 ];
 
+const deferredQuestionReplies = [
+  {
+    keywords: ["prix", "taux", "financement", "mensualité", "mensualites", "rabais"],
+    text: "Je n'ai pas le détail exact sous la main, mais je peux vérifier les prix et taux en vigueur et vous revenir rapidement.",
+  },
+  {
+    keywords: ["inventaire", "stock", "disponible", "disponibilité", "couleur", "couleurs"],
+    text: "Je peux valider l'inventaire et les couleurs disponibles et vous confirmer d'ici peu.",
+  },
+  {
+    keywords: ["livraison", "délai", "delai", "date", "calendrier"],
+    text: "Je vais vérifier les délais de livraison et vous revenir avec une date précise.",
+  },
+  {
+    keywords: ["promotion", "offre spéciale", "offres spéciales", "programme", "incitatif"],
+    text: "Je peux vérifier les promotions en cours et vous revenir avec les options applicables.",
+  },
+  {
+    keywords: ["spécification", "specification", "fiche", "technique", "dimension", "poids"],
+    text: "Je vais confirmer la fiche technique et vous fournir les spécifications exactes.",
+  },
+];
+
 const isQuestion = (text) => {
   const normalized = normalize(text).trim();
   if (normalized.includes("?")) {
@@ -1117,7 +1140,13 @@ const getStageReply = (stageIndex, sellerText) => {
       }
       return matchedReply.text;
     }
-    return "Pouvez-vous préciser votre question afin que je vous réponde clairement ?";
+    const deferredReply = deferredQuestionReplies.find((item) =>
+      item.keywords.some((keyword) => normalized.includes(keyword))
+    );
+    if (deferredReply) {
+      return deferredReply.text;
+    }
+    return "Je n'ai pas l'information exacte sous la main, mais je peux la vérifier et revenir vers vous rapidement. Pouvez-vous préciser ce que vous souhaitez confirmer ?";
   }
 
   return "Pour que je vous réponde, posez-moi une question en lien avec votre dernier point.";
