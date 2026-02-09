@@ -4,75 +4,100 @@ const stages = [
     hint:
       "Couvrez les 6 pours : pour qui, pourquoi changer, pourquoi nous, pour quand, pour quelle utilisation, pour quel budget.",
     clientOpening:
-      "Bonjour, je cherche un véhicule pour ma famille. Je fais beaucoup de route et je veux du confort.",
+      "Bonjour, je regarde pour changer de véhicule et j'aimerais voir ce qui pourrait convenir.",
     dynamicReplies: [
       {
-        id: "usage",
-        keywords: ["km", "route", "trajet", "usage", "quotidien", "autoroute"],
-        text: "Je fais beaucoup de route, environ 20 000 km par an, surtout sur l'autoroute.",
+        id: "pour-qui",
+        keywords: ["pour qui", "famille", "enfant", "passager", "utilisateur"],
+        text: "Ce serait surtout pour moi et ma famille, on est quatre.",
       },
       {
-        id: "famille",
-        keywords: ["famille", "enfant", "place", "passager", "bébé"],
-        text: "Nous sommes 4 à la maison avec deux enfants, donc l'espace est important.",
+        id: "pourquoi-changer",
+        keywords: ["pourquoi", "changer", "remplacer", "actuel"],
+        text: "Je veux changer parce que mon véhicule actuel commence à coûter cher en entretien.",
+      },
+      {
+        id: "pourquoi-nous",
+        keywords: ["pourquoi nous", "pourquoi honda", "choisi", "concession", "recommand"],
+        text: "J'ai entendu de bons commentaires sur Honda Brossard et sur votre service.",
+      },
+      {
+        id: "pour-quand",
+        keywords: ["quand", "délai", "besoin", "rapidement", "bientôt"],
+        text: "Idéalement, j'aimerais changer d'ici deux mois.",
+      },
+      {
+        id: "utilisation",
+        keywords: ["usage", "utilisation", "route", "km", "trajet", "autoroute"],
+        text: "Je fais environ 20 000 km par an, surtout de l'autoroute et des déplacements familiaux.",
       },
       {
         id: "budget",
-        keywords: ["budget", "mensuel", "paiement", "financement"],
-        text: "Le budget mensuel idéal serait autour de 600 $.",
+        keywords: ["budget", "mensuel", "paiement", "financement", "prix"],
+        text: "Je vise un paiement autour de 600 $ par mois.",
       },
     ],
-    closingReply: "Parfait, cela répond bien à mes questions pour commencer.",
+    closingReply: "Vous avez fait un bon tour de mes besoins, merci.",
   },
   {
     title: "Présentation et essai",
     hint:
       "Mettez en avant caractéristiques, avantages, bénéfices, puis proposez et animez l'essai routier.",
     clientOpening:
-      "J'hésite entre un VUS compact et une berline. Je veux être sûr de faire le bon choix.",
+      "Je suis curieux d'en savoir plus sur le véhicule et de voir ce qu'il propose.",
     dynamicReplies: [
       {
-        id: "securite",
-        keywords: ["sécurité", "securite", "enfant", "assist", "airbag"],
-        text: "La sécurité pour les enfants est vraiment ma priorité.",
+        id: "caracteristiques",
+        keywords: ["caractéristique", "moteur", "technologie", "équipement", "capot"],
+        text: "J'aime bien les caractéristiques mentionnées, surtout la technologie embarquée.",
       },
       {
-        id: "fiabilite",
-        keywords: ["fiable", "fiabilité", "garantie", "durable"],
-        text: "Je veux quelque chose de fiable avec une bonne garantie.",
+        id: "avantages",
+        keywords: ["avantage", "bénéfice", "confort", "sécurité", "securite"],
+        text: "Le confort et la sécurité sont vraiment importants pour moi.",
       },
       {
-        id: "entretien",
-        keywords: ["entretien", "temps", "service", "maintenance"],
-        text: "Je préfère un véhicule qui ne demande pas trop d'entretien.",
+        id: "essai",
+        keywords: ["essai", "routier", "conduite", "tester"],
+        text: "Oui, un essai routier m'aiderait à me projeter.",
+      },
+      {
+        id: "emotion",
+        keywords: ["plaisir", "émotion", "expérience", "impression", "enthousiasme"],
+        text: "Je dois dire que l'expérience me donne envie, c'est motivant.",
       },
     ],
-    closingReply: "Merci, c'est rassurant. J'aimerais voir comment cela se compare concrètement.",
+    closingReply: "Merci, la présentation est claire et l'essai m'a mis en confiance.",
   },
   {
     title: "Présentation de l'offre",
     hint:
       "Présentez un scénario complet, proposez des produits connexes et traitez les objections.",
     clientOpening:
-      "Un autre concessionnaire me propose un rabais de 1 000 $.",
+      "Je veux voir l'offre complète et comprendre ce qui est inclus.",
     dynamicReplies: [
       {
-        id: "rabais",
-        keywords: ["rabais", "prix", "offre", "concurrent", "compar"],
-        text: "Le rabais est intéressant, mais je veux comprendre la différence globale.",
+        id: "details-offre",
+        keywords: ["détails", "offre", "inclu", "financement", "mensuel"],
+        text: "Pouvez-vous m'expliquer les détails de l'offre et les paiements ?",
       },
       {
-        id: "reflexion",
-        keywords: ["réfléchir", "penser", "conjointe", "décider", "decision"],
-        text: "Je dois en parler avec ma conjointe avant de décider.",
+        id: "produits",
+        keywords: ["pneus", "garantie", "antirouille", "protection", "pellicule", "tag"],
+        text: "Les protections, pneus et garanties supplémentaires m'intéressent si elles ont de la valeur.",
       },
       {
-        id: "essai",
-        keywords: ["essai", "rendez-vous", "planifier", "visite"],
-        text: "Un essai routier m'aiderait à me décider.",
+        id: "objection-prix",
+        keywords: ["rabais", "prix", "cher", "concurrent", "compar"],
+        text: "Je trouve le prix un peu élevé comparé à ce que j'ai vu ailleurs.",
+      },
+      {
+        id: "engagement",
+        keywords: ["décider", "signature", "réserver", "aller de l'avant"],
+        text: "Si vous pouvez ajuster un peu, je serais prêt à avancer.",
       },
     ],
-    closingReply: "Merci, je suis prêt à convenir de la prochaine étape.",
+    closingReply: "Merci, le scénario est clair et je vois mieux la valeur.",
   },
 ];
 
@@ -95,19 +120,41 @@ const rubric = [
   {
     stageIndex: 1,
     label: "Présentation et essai (caractéristiques, bénéfices, émotion)",
-    keywords: ["caractéristique", "avantage", "bénéfice", "essai", "sécurité", "confort", "émotion"],
+    keywords: [
+      "caractéristique",
+      "capot",
+      "moteur",
+      "avantage",
+      "bénéfice",
+      "essai",
+      "sécurité",
+      "confort",
+      "émotion",
+    ],
     weight: 3,
   },
   {
     stageIndex: 2,
     label: "Présentation de l'offre (produits, objections, valeur)",
-    keywords: ["offre", "garantie", "antirouille", "protection", "objection", "valeur", "rabais"],
+    keywords: [
+      "offre",
+      "pneus",
+      "garantie",
+      "antirouille",
+      "pellicule",
+      "protection",
+      "objection",
+      "valeur",
+      "rabais",
+      "tag",
+    ],
     weight: 3,
   },
 ];
 
 let currentStage = 0;
 const stageUsedReplies = new Map();
+const stageResponses = new Map();
 let stageResponseCount = 0;
 let isComplete = false;
 const responses = [];
@@ -164,6 +211,7 @@ const updateStage = () => {
   const stage = stages[currentStage];
   stageResponseCount = 0;
   stageUsedReplies.set(currentStage, new Set());
+  stageResponses.set(currentStage, []);
   stepIndicator.textContent = `Étape ${currentStage + 1} / ${stages.length} · ${stage.title}`;
   helperText.textContent = `Conseil : ${stage.hint}`;
   sellerResponse.value = "";
@@ -174,15 +222,70 @@ const updateStage = () => {
 
 const normalize = (text) => text.toLowerCase();
 
+const questionStarters = [
+  "quoi",
+  "quel",
+  "quelle",
+  "quels",
+  "quelles",
+  "comment",
+  "combien",
+  "pourquoi",
+  "où",
+  "ou",
+  "quand",
+  "est-ce que",
+];
+
+const generalQuestionReplies = [
+  {
+    keywords: ["nom", "appel", "appeler"],
+    text: "Je m'appelle Alex Martin.",
+  },
+  {
+    keywords: ["courriel", "email", "adresse"],
+    text: "Vous pouvez me joindre par courriel à alex.martin@example.com.",
+  },
+];
+
+const isQuestion = (text) => {
+  const normalized = normalize(text).trim();
+  if (normalized.includes("?")) {
+    return true;
+  }
+  return questionStarters.some((starter) => normalized.startsWith(starter));
+};
+
 const getStageReply = (stageIndex, sellerText) => {
   const stage = stages[stageIndex];
   const normalized = normalize(sellerText);
   const usedReplies = stageUsedReplies.get(stageIndex) ?? new Set();
-  let reply = stage.dynamicReplies.find(
-    (item) =>
-      !usedReplies.has(item.id) &&
-      item.keywords.some((keyword) => normalized.includes(keyword))
+  const generalReply = generalQuestionReplies.find((item) =>
+    item.keywords.some((keyword) => normalized.includes(keyword))
   );
+  const matchedReply = stage.dynamicReplies.find((item) =>
+    item.keywords.some((keyword) => normalized.includes(keyword))
+  );
+
+  if (isQuestion(sellerText)) {
+    if (generalReply) {
+      return generalReply.text;
+    }
+    if (matchedReply) {
+      if (!usedReplies.has(matchedReply.id)) {
+        usedReplies.add(matchedReply.id);
+        stageUsedReplies.set(stageIndex, usedReplies);
+      }
+      return matchedReply.text;
+    }
+    return "Pouvez-vous préciser votre question afin que je vous réponde clairement ?";
+  }
+
+  let reply = matchedReply
+    ? !usedReplies.has(matchedReply.id)
+      ? matchedReply
+      : undefined
+    : undefined;
 
   if (!reply) {
     reply = stage.dynamicReplies.find((item) => !usedReplies.has(item.id));
@@ -197,7 +300,9 @@ const getStageReply = (stageIndex, sellerText) => {
   return stage.closingReply;
 };
 
-const calculateScore = () => {
+const calculateStageScore = (stageIndex) => {
+  const stageRubric = rubric.filter((criterion) => criterion.stageIndex === stageIndex);
+  const stageText = stageResponses.get(stageIndex) ?? [];
   let total = 0;
   const feedback = [];
 
@@ -317,6 +422,7 @@ restartButton.addEventListener("click", () => {
   currentStage = 0;
   isComplete = false;
   stageUsedReplies.clear();
+  stageResponses.clear();
   chatLog.innerHTML = "";
   scoreValue.textContent = "-";
   scoreNote.textContent =
