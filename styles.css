@@ -153,6 +153,15 @@ h1 {
   border-color: rgba(29, 78, 216, 0.2);
 }
 
+.chat-row.client.ai .chat-bubble {
+  background: #e0f2fe;
+  border-color: rgba(14, 116, 144, 0.3);
+}
+
+.chat-row.client.ai .chat-label {
+  color: #0e7490;
+}
+
 .chat-row.seller .chat-bubble {
   background: #f0fdf4;
   border-color: rgba(21, 128, 61, 0.18);
