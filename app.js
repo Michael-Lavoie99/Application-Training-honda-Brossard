@@ -69,11 +69,13 @@ const personaPool = [
       stage3: "Montrez-moi l'offre complète et les protections possibles.",
     },
     stage1: {
-      who: "C'est pour moi et ma conjointe avec deux enfants",
-      whyChange: "Mon véhicule actuel me coûte trop cher en entretien",
+      who: "C'est pour moi et ma conjointe avec deux enfants; on fait beaucoup de soccer le week-end et quelques escapades de camping",
+      whyChange:
+        "Je roule présentement en Ford Explorer 2016 : j'adore l'espace, mais les réparations et la consommation me fatiguent, alors je veux le remettre en échange",
       whyHonda: "On m'a recommandé Honda Brossard pour l'approche client",
       when: "Idéalement d'ici 6 à 8 semaines",
-      usage: "Environ 20 000 km/an, autoroute et activités familiales",
+      usage:
+        "Je regarde un CR-V ou un Pilot; on ferait environ 20 000 km/an entre l'autoroute, l'école des enfants, les sorties familiales et les voyages",
       budget: "Un paiement autour de 600 $/mois, financement inclus",
       closing: "Vous avez bien saisi ma situation, merci.",
     },
@@ -102,11 +104,13 @@ const personaPool = [
       stage3: "Je veux voir l'offre complète, surtout pour une location.",
     },
     stage1: {
-      who: "C'est pour moi, je conduis seule la plupart du temps",
-      whyChange: "Mon vieux véhicule n'est plus fiable en ville",
+      who: "C'est pour moi, je conduis seule la plupart du temps et je fais du yoga et des sorties entre amis",
+      whyChange:
+        "J'ai une Mazda2 2012 : j'aime sa taille, mais elle est bruyante et tombe en panne, donc je veux la remettre en échange",
       whyHonda: "Honda a la réputation d'être économique et fiable",
       when: "Je voudrais changer avant l'été",
-      usage: "Trajets quotidiens, environ 12 000 km/an",
+      usage:
+        "Je regarde une Civic ou une HR-V; ce serait pour la ville, les stationnements serrés, 12 000 km/an et quelques escapades de fin de semaine",
       budget: "Je vise 350 $/mois en location",
       closing: "Merci, c'est exactement mon contexte.",
     },
@@ -135,11 +139,13 @@ const personaPool = [
       stage3: "Je veux une offre complète avec les options de travail.",
     },
     stage1: {
-      who: "C'est pour moi et mes employés sur les chantiers",
-      whyChange: "Mon pick-up actuel est trop coûteux en carburant",
+      who: "C'est pour moi et mes employés sur les chantiers; je passe mes week-ends à la pêche quand j'ai du temps",
+      whyChange:
+        "Je roule avec un F-150 2015 : j'aime sa capacité, mais la consommation est trop élevée, donc je veux le remettre en échange",
       whyHonda: "Votre concession est près de mes chantiers",
       when: "Je dois changer dans le prochain mois",
-      usage: "Beaucoup de route, 30 000 km/an et matériel",
+      usage:
+        "Je regarde un Ridgeline pour le côté utilitaire; usage chantiers, remorquage léger et 30 000 km/an",
       budget: "Je vise un paiement autour de 750 $/mois",
       closing: "Vous avez compris mes contraintes de travail.",
     },
@@ -168,11 +174,13 @@ const personaPool = [
       stage3: "Expliquez-moi les protections sans jargon.",
     },
     stage1: {
-      who: "C'est pour moi et parfois mes petits-enfants",
-      whyChange: "Je veux un véhicule plus facile à conduire",
+      who: "C'est pour moi et parfois mes petits-enfants; j'aime aller au marché et faire du jardinage",
+      whyChange:
+        "J'ai une Corolla 2010 : j'aime qu'elle soit simple, mais elle est basse et moins confortable, alors je veux la remettre en échange",
       whyHonda: "On m'a parlé du service après-vente Honda",
       when: "Pas pressée, mais avant l'automne",
-      usage: "Environ 8 000 km/an, sorties et visites",
+      usage:
+        "Je regarde une HR-V ou une CR-V; ce serait pour les sorties, les visites familiales et environ 8 000 km/an",
       budget: "Autour de 450 $/mois maximum",
       closing: "Merci, c'est exactement mon besoin.",
     },
@@ -201,11 +209,13 @@ const personaPool = [
       stage3: "J'ai besoin d'un plan financier clair.",
     },
     stage1: {
-      who: "C'est pour moi et mes clients",
-      whyChange: "Mon véhicule actuel est trop gourmand",
+      who: "C'est pour moi et mes clients; je fais aussi du soccer le soir",
+      whyChange:
+        "J'ai une Corolla 2014 : elle est fiable, mais la consommation me coûte cher en covoiturage, donc je veux la remettre en échange",
       whyHonda: "Honda est reconnu pour la fiabilité",
       when: "Je veux changer d'ici 4 semaines",
-      usage: "40 000 km/an en ville et autoroute",
+      usage:
+        "Je regarde une Accord hybride ou une Civic; usage intensif en ville et autoroute, environ 40 000 km/an",
       budget: "Je peux aller à 700 $/mois si ça réduit mes coûts",
       closing: "Vous avez compris mes priorités.",
     },
@@ -234,11 +244,13 @@ const personaPool = [
       stage3: "Présentez-moi l'offre et les protections famille.",
     },
     stage1: {
-      who: "C'est pour moi, mon conjoint et bientôt un bébé",
-      whyChange: "Notre petite voiture n'est plus adaptée",
+      who: "C'est pour moi, mon conjoint et bientôt un bébé; on aime les sorties au parc et les soupers en famille",
+      whyChange:
+        "On roule avec une Honda Fit 2013 : on adore sa maniabilité, mais c'est trop petit pour un siège bébé, donc on veut la remettre en échange",
       whyHonda: "On nous a recommandé Honda pour la sécurité",
       when: "Avant la naissance, dans 2 mois",
-      usage: "Trajets maison-travail et visites familiales",
+      usage:
+        "On regarde un CR-V; ce serait pour les trajets maison-travail, les visites familiales et les activités du bébé",
       budget: "Autour de 550 $/mois",
       closing: "Merci, vous avez saisi notre situation.",
     },
@@ -267,11 +279,13 @@ const personaPool = [
       stage3: "Je veux une offre complète avec accessoires.",
     },
     stage1: {
-      who: "C'est pour moi et mes amis lors des sorties",
-      whyChange: "Mon ancien véhicule patine l'hiver",
+      who: "C'est pour moi et mes amis lors des sorties; on fait du ski et de la randonnée",
+      whyChange:
+        "J'ai un vieux RAV4 2011 : j'aime sa polyvalence, mais il patine l'hiver et il commence à coûter cher, donc je veux le remettre en échange",
       whyHonda: "Honda est bon pour la traction intégrale",
       when: "Avant la saison de ski",
-      usage: "15 000 km/an, routes de montagne",
+      usage:
+        "Je regarde un CR-V AWD ou un Passport; ce serait pour les routes de montagne, l'hiver et environ 15 000 km/an",
       budget: "Environ 500 $/mois",
       closing: "Vous avez bien compris mon besoin d'aventure.",
     },
@@ -300,11 +314,13 @@ const personaPool = [
       stage3: "Je veux une offre qui respecte mon budget.",
     },
     stage1: {
-      who: "C'est pour moi et mon conjoint",
-      whyChange: "Je veux réduire mon empreinte carbone",
+      who: "C'est pour moi et mon conjoint; on fait du vélo et on aime les sorties en nature",
+      whyChange:
+        "On a un vieux VUS à essence (2012) : on aime l'espace, mais la consommation est trop élevée, donc on veut le remettre en échange",
       whyHonda: "Honda a une bonne réputation en hybride",
       when: "Dans les 3 prochains mois",
-      usage: "12 000 km/an, surtout en ville",
+      usage:
+        "Je regarde un CR-V hybride ou une Accord hybride; ce serait surtout en ville, 12 000 km/an, avec quelques escapades",
       budget: "Autour de 480 $/mois",
       closing: "Vous avez compris mes priorités écologiques.",
     },
@@ -333,11 +349,13 @@ const personaPool = [
       stage3: "Je veux connaître l'offre et les options sport.",
     },
     stage1: {
-      who: "C'est pour moi, je suis le seul conducteur",
-      whyChange: "Je veux quelque chose de plus performant",
+      who: "C'est pour moi, je suis le seul conducteur et je fais souvent des road trips le week-end",
+      whyChange:
+        "Je roule avec une Civic 2015 : j'aime la fiabilité, mais je veux plus de sensations, donc je veux la remettre en échange",
       whyHonda: "Les Honda sportives ont bonne réputation",
       when: "Je suis prêt à acheter rapidement",
-      usage: "15 000 km/an, surtout route",
+      usage:
+        "Je regarde une Civic Si; ce serait pour la route, des sorties entre amis et environ 15 000 km/an",
       budget: "Jusqu'à 650 $/mois",
       closing: "Vous avez saisi mon envie de performance.",
     },
@@ -366,11 +384,13 @@ const personaPool = [
       stage3: "Je veux une offre très claire.",
     },
     stage1: {
-      who: "C'est pour moi, je suis étudiante",
-      whyChange: "Je n'ai jamais eu de voiture",
+      who: "C'est pour moi, je suis étudiante et je travaille à temps partiel",
+      whyChange:
+        "Je n'ai pas de véhicule, je prends le bus; je veux ma première voiture pour être plus autonome",
       whyHonda: "On m'a dit que Honda est fiable",
       when: "Avant la rentrée",
-      usage: "Petits trajets et école, 8 000 km/an",
+      usage:
+        "Je regarde une Civic d'entrée de gamme ou une HR-V; ce serait pour l'école, le travail et environ 8 000 km/an",
       budget: "Autour de 300 $/mois",
       closing: "Merci d'avoir pris le temps.",
     },
@@ -399,11 +419,13 @@ const personaPool = [
       stage3: "Je veux une offre commerciale claire.",
     },
     stage1: {
-      who: "C'est pour deux techniciens et moi",
-      whyChange: "Nous avons trop de réparations",
+      who: "C'est pour deux techniciens et moi; on fait beaucoup de route pour les clients",
+      whyChange:
+        "On roule avec des fourgonnettes 2013 : elles ont fait leur temps et coûtent trop cher en réparation, donc on veut les remettre en échange",
       whyHonda: "Votre service flotte est reconnu",
       when: "D'ici 2 mois",
-      usage: "Beaucoup de route, 25 000 km/an",
+      usage:
+        "Je regarde des CR-V ou HR-V pour la flotte; usage professionnel, 25 000 km/an par véhicule",
       budget: "Autour de 700 $/mois par véhicule",
       closing: "Vous avez compris nos contraintes.",
     },
@@ -432,11 +454,13 @@ const personaPool = [
       stage3: "Je veux une offre avec pneus d'hiver.",
     },
     stage1: {
-      who: "C'est pour moi et mes parents quand je les visite",
-      whyChange: "Mon véhicule glisse beaucoup en hiver",
+      who: "C'est pour moi et mes parents quand je les visite; je fais aussi du ski de fond",
+      whyChange:
+        "J'ai une Yaris 2011 : j'aime qu'elle soit économique, mais elle glisse l'hiver, donc je veux la remettre en échange",
       whyHonda: "Honda est fiable en climat froid",
       when: "Avant les premières neiges",
-      usage: "18 000 km/an, routes rurales",
+      usage:
+        "Je regarde un CR-V AWD; ce serait pour les routes rurales, les visites familiales et 18 000 km/an",
       budget: "Environ 520 $/mois",
       closing: "Merci, vous comprenez ma réalité.",
     },
@@ -465,11 +489,13 @@ const personaPool = [
       stage3: "Je veux une offre adaptée à mon crédit.",
     },
     stage1: {
-      who: "C'est pour moi et ma conjointe",
-      whyChange: "Nous n'avons pas encore de véhicule ici",
+      who: "C'est pour moi et ma conjointe; on découvre la ville et on aime les sorties culturelles",
+      whyChange:
+        "Nous n'avons pas encore de véhicule ici, donc on veut notre première auto au Canada",
       whyHonda: "On m'a conseillé Honda pour la fiabilité",
       when: "Le plus tôt possible",
-      usage: "12 000 km/an, déplacements quotidiens",
+      usage:
+        "Je regarde une Civic ou une HR-V; ce serait pour les déplacements quotidiens, l'épicerie et 12 000 km/an",
       budget: "Environ 400 $/mois",
       closing: "Merci de comprendre ma situation.",
     },
@@ -498,11 +524,13 @@ const personaPool = [
       stage3: "Je veux une offre de renouvellement.",
     },
     stage1: {
-      who: "C'est pour moi et mon conjoint",
-      whyChange: "Je dois décider si je renouvelle ou change",
+      who: "C'est pour moi et mon conjoint; on aime les escapades de fin de semaine",
+      whyChange:
+        "J'ai un bail sur une Civic 2021 : j'aime la fiabilité, mais j'aimerais plus de confort; je vais rendre le véhicule à la fin du bail",
       whyHonda: "J'aime l'expérience Honda",
       when: "Dans 6 semaines",
-      usage: "14 000 km/an, mixte",
+      usage:
+        "Je regarde une nouvelle Civic ou un CR-V; usage mixte, 14 000 km/an avec des voyages occasionnels",
       budget: "Autour de 500 $/mois",
       closing: "Merci, c'est mon contexte exact.",
     },
@@ -531,11 +559,13 @@ const personaPool = [
       stage3: "Je veux une offre complète avec options.",
     },
     stage1: {
-      who: "C'est pour moi et ma partenaire",
-      whyChange: "Je veux monter en gamme",
+      who: "C'est pour moi et ma partenaire; on sort souvent au resto et on va à des concerts",
+      whyChange:
+        "Je roule avec une Accord 2018 : j'aime le confort, mais je veux plus de technologie, donc je veux la remettre en échange",
       whyHonda: "Honda offre un bon rapport qualité-prix",
       when: "D'ici 2 mois",
-      usage: "16 000 km/an",
+      usage:
+        "Je regarde une Accord Touring ou un CR-V bien équipé; usage quotidien, 16 000 km/an et quelques voyages",
       budget: "Jusqu'à 700 $/mois",
       closing: "Vous avez compris mon besoin de confort.",
     },
@@ -564,11 +594,13 @@ const personaPool = [
       stage3: "Je veux l'offre avec accessoires pour animaux.",
     },
     stage1: {
-      who: "C'est pour moi et mon chien",
-      whyChange: "Ma voiture actuelle est trop petite",
+      who: "C'est pour moi et mon chien; on va souvent au parc et chez le vétérinaire",
+      whyChange:
+        "J'ai une petite hatchback 2012 : j'aime la consommation, mais l'espace est trop limité, donc je veux la remettre en échange",
       whyHonda: "On m'a parlé de vos VUS pratiques",
       when: "Dans les 2 prochains mois",
-      usage: "10 000 km/an, sorties et parc",
+      usage:
+        "Je regarde un HR-V ou un CR-V; ce serait pour les sorties, le parc et environ 10 000 km/an",
       budget: "Autour de 480 $/mois",
       closing: "Merci, vous comprenez ma situation.",
     },
@@ -597,11 +629,13 @@ const personaPool = [
       stage3: "Je veux une offre solide sur le long terme.",
     },
     stage1: {
-      who: "C'est pour moi seul",
-      whyChange: "Je veux réduire la fatigue de conduite",
+      who: "C'est pour moi seul; j'écoute beaucoup de podcasts en route",
+      whyChange:
+        "Je roule avec une Camry 2014 : elle est fiable, mais les sièges ne sont pas très confortables, donc je veux la remettre en échange",
       whyHonda: "Honda est reconnu pour sa fiabilité",
       when: "D'ici 2 mois",
-      usage: "30 000 km/an, surtout autoroute",
+      usage:
+        "Je regarde une Accord ou une CR-V hybride; ce serait pour un long trajet quotidien et 30 000 km/an",
       budget: "Autour de 550 $/mois",
       closing: "Vous avez compris mon besoin d'efficacité.",
     },
@@ -630,11 +664,13 @@ const personaPool = [
       stage3: "Je veux une offre claire et transparente.",
     },
     stage1: {
-      who: "C'est pour moi et ma sœur",
-      whyChange: "On veut réduire nos coûts d'essence",
+      who: "C'est pour moi et ma sœur; on fait des courses et des sorties shopping",
+      whyChange:
+        "On a une Elantra 2013 : j'aime qu'elle soit économique, mais on veut encore moins d'essence, donc on veut la remettre en échange",
       whyHonda: "Honda a de bons modèles hybrides",
       when: "Dans 3 mois",
-      usage: "14 000 km/an",
+      usage:
+        "Je regarde une Accord hybride; usage quotidien, 14 000 km/an et quelques voyages",
       budget: "Environ 500 $/mois",
       closing: "Merci, vous comprenez notre objectif.",
     },
@@ -663,11 +699,13 @@ const personaPool = [
       stage3: "On veut une offre familiale complète.",
     },
     stage1: {
-      who: "C'est pour moi, ma conjointe et trois enfants",
-      whyChange: "Notre véhicule est devenu trop petit",
+      who: "C'est pour moi, ma conjointe et trois enfants; on a des tournois de hockey le week-end",
+      whyChange:
+        "On a un VUS 5 places 2015 : on aime la fiabilité, mais il manque d'espace, donc on veut le remettre en échange",
       whyHonda: "On connaît la fiabilité Honda",
       when: "Avant les vacances",
-      usage: "20 000 km/an, activités sportives",
+      usage:
+        "On regarde un Pilot ou une Odyssey; ce serait pour les activités sportives, les vacances et 20 000 km/an",
       budget: "Autour de 700 $/mois",
       closing: "Vous avez bien compris nos besoins.",
     },
@@ -696,11 +734,13 @@ const personaPool = [
       stage3: "Je veux une offre très transparente.",
     },
     stage1: {
-      who: "C'est pour moi seule",
-      whyChange: "Je veux un véhicule fiable pour les week-ends",
+      who: "C'est pour moi seule; je fais du bénévolat et des sorties nature",
+      whyChange:
+        "J'ai une petite auto 2009 : j'aime qu'elle soit simple, mais elle me cause des inquiétudes, donc je veux la remettre en échange",
       whyHonda: "On m'a dit que Honda se revend bien",
       when: "Pas pressée, mais d'ici 4 mois",
-      usage: "6 000 km/an, surtout loisirs",
+      usage:
+        "Je regarde une HR-V ou une Civic; ce serait pour les week-ends, les loisirs et environ 6 000 km/an",
       budget: "Autour de 350 $/mois",
       closing: "Merci, vous avez compris mon profil.",
     },
@@ -729,11 +769,13 @@ const personaPool = [
       stage3: "Je veux une offre qui protège bien.",
     },
     stage1: {
-      who: "C'est pour mon fils qui va conduire",
-      whyChange: "On veut remplacer notre vieille voiture",
+      who: "C'est pour mon fils qui va conduire; on veut qu'il se sente en confiance",
+      whyChange:
+        "On a une Corolla 2008 : je l'aime pour sa fiabilité, mais elle manque d'aides à la conduite, donc on veut la remettre en échange",
       whyHonda: "Honda est reconnu pour la sécurité",
       when: "Avant qu'il obtienne son permis",
-      usage: "10 000 km/an, école et activités",
+      usage:
+        "Je regarde une Civic ou une HR-V; ce serait pour l'école, les activités et environ 10 000 km/an",
       budget: "Environ 400 $/mois",
       closing: "Merci, vous comprenez mes inquiétudes.",
     },
@@ -762,11 +804,13 @@ const personaPool = [
       stage3: "Je veux une offre avec les bonnes options.",
     },
     stage1: {
-      who: "C'est pour moi et mon conjoint",
-      whyChange: "J'ai besoin d'une position de conduite confortable",
+      who: "C'est pour moi et mon conjoint; on aime les sorties au restaurant",
+      whyChange:
+        "J'ai une berline basse 2011 : j'aime son économie, mais l'accès me cause des douleurs, donc je veux la remettre en échange",
       whyHonda: "On m'a dit que vos sièges sont ergonomiques",
       when: "Dans 2 à 3 mois",
-      usage: "9 000 km/an",
+      usage:
+        "Je regarde une HR-V ou une CR-V; ce serait pour les déplacements quotidiens et 9 000 km/an",
       budget: "Autour de 480 $/mois",
       closing: "Merci, vous avez compris ma réalité.",
     },
@@ -795,11 +839,13 @@ const personaPool = [
       stage3: "Je veux une offre avec attelage.",
     },
     stage1: {
-      who: "C'est pour moi et ma conjointe",
-      whyChange: "Mon véhicule actuel ne peut pas remorquer",
+      who: "C'est pour moi et ma conjointe; on fait du camping l'été",
+      whyChange:
+        "J'ai un petit VUS 2012 : j'aime sa maniabilité, mais il ne peut pas remorquer, donc je veux le remettre en échange",
       whyHonda: "Honda offre un bon compromis",
       when: "Avant l'été",
-      usage: "14 000 km/an, routes secondaires",
+      usage:
+        "Je regarde un Passport ou un CR-V avec attelage; ce serait pour les routes secondaires, le camping et 14 000 km/an",
       budget: "Autour de 600 $/mois",
       closing: "Vous avez compris mes besoins de remorquage.",
     },
@@ -828,11 +874,13 @@ const personaPool = [
       stage3: "Je veux voir l'offre et les rabais.",
     },
     stage1: {
-      who: "C'est pour moi",
-      whyChange: "Je cherche une meilleure valeur",
+      who: "C'est pour moi; je compare beaucoup et je fais du magasinage en ligne",
+      whyChange:
+        "Je roule avec une Civic 2017 : je l'aime, mais je veux un meilleur rapport équipement/prix, donc je veux la remettre en échange",
       whyHonda: "J'ai entendu de bonnes choses sur Honda",
       when: "D'ici 2 mois",
-      usage: "13 000 km/an",
+      usage:
+        "Je regarde une Civic bien équipée ou un CR-V; ce serait pour 13 000 km/an, les déplacements et quelques sorties",
       budget: "Autour de 450 $/mois",
       closing: "Merci, vous avez compris mon approche.",
     },
@@ -861,11 +909,13 @@ const personaPool = [
       stage3: "Je veux une offre avec options sport.",
     },
     stage1: {
-      who: "C'est pour moi",
-      whyChange: "Je veux passer à quelque chose de plus excitant",
+      who: "C'est pour moi; je fais des randonnées routières le week-end",
+      whyChange:
+        "Je roule avec une compacte 2014 : j'aime la fiabilité, mais je veux plus de punch, donc je veux la remettre en échange",
       whyHonda: "J'aime la fiabilité Honda",
       when: "Je suis prêt à acheter",
-      usage: "18 000 km/an",
+      usage:
+        "Je regarde une Civic Si; ce serait pour la route, le plaisir de conduite et environ 18 000 km/an",
       budget: "Jusqu'à 700 $/mois",
       closing: "Vous avez compris mon envie.",
     },
